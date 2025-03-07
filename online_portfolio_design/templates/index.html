@@ -1,0 +1,127 @@
+<!-- ==========================================================================
+     Home.html
+     ========================================================================== -->
+<!-- This template renders the Home page, displaying a hero section with an image, introduction, and links to other sections of the website. -->
+
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements. -->
+
+{% block title %} Home {% endblock %}
+<!-- Defines the title for this page, which will be inserted into the base template. -->
+
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page. -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+<!-- Links to the 'index.css' stylesheet in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %} {% block content %}
+<!-- Defines the main content of the page. -->
+<!-- ==========================================================================
+      Hero Section
+     ========================================================================== -->
+<!-- The main introductory section of the page, containing the image, heading, and call-to-action buttons. -->
+<header class="hero">
+  <!-- Header element with the class "hero" (styling applied in CSS). -->
+  <div class="container">
+    <!-- Container class provides responsive width. -->
+    <div class="row justify-content-center">
+      <!-- Row class for creating a horizontal grouping of columns and centering the content horizontally. -->
+
+      <!-- ==========================================================================
+            Image Column
+           ========================================================================== -->
+      <!-- Column for displaying the profile image. -->
+      <div class="col-md-4 text-center mb-4">
+        <!-- Column taking up 4 columns on medium (md) screens and larger, centering the text (text-center), and adding margin at the bottom (mb-4). -->
+        <img
+          src="{{ url_for('static', filename='images/me.jpeg') }}"
+          alt="Imaad Fakier"
+          class="img-fluid rounded-circle slide_in_from_top"
+          style="max-width: 200px"
+        />
+        <!-- Displays the profile image, using Flask's url_for function to generate the URL, setting the alt text for accessibility, applying responsive image styling (img-fluid), rounding the corners (rounded-circle), and adding a slide-in animation from the top (slide_in_from_top). -->
+      </div>
+
+      <!-- ==========================================================================
+            Hero Content Column
+           ========================================================================== -->
+      <!-- Column for displaying the main content of the hero section. -->
+      <div class="col-md-12 text-center">
+        <!-- Column taking up full width on medium (md) screens and larger, centering the text (text-center). -->
+        <h1 class="hidden_slide_in slideInFromRight" style="visibility: hidden">
+          Imaad Fakier
+        </h1>
+        <!-- Heading with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the right (slideInFromRight). -->
+        <h2 class="hidden_slide_in slideInFromLeft" style="visibility: hidden">
+          Versatile Full-Stack Software Engineer | Python Expert | Data
+          Scientist | Automation Enthusiast
+        </h2>
+        <!-- Heading with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the left (slideInFromLeft). -->
+        <p class="hidden_slide_in slideInFromRight" style="visibility: hidden">
+          <!-- Paragraph with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the right (slideInFromRight). -->
+          <i>
+            <!-- Italicized text containing a brief introduction. -->
+            Driven by a curiosity for what's possible, I'm a software engineer
+            who thrives on challenges. From crafting dynamic web experiences and
+            dissecting complex datasets to automating intricate processes and
+            building games, I explore the boundaries of technology with both
+            precision and a touch of creativity. Welcome to my journey of code,
+            discovery, and innovation.</i
+          >
+        </p>
+
+        <!-- ==========================================================================
+              Button Container
+             ========================================================================== -->
+        <!-- Container for the call-to-action buttons. -->
+        <div class="button-container">
+          <!-- Div for the buttons and the layout -->
+          <a
+            href="{{ url_for('about.about') }}"
+            class="btn btn-secondary fade_in"
+            >About</a
+          >
+          <!-- Link to the "About" page, styled as a secondary button with a fade-in animation. -->
+          <a
+            href="{{ url_for('career.career') }}"
+            class="btn btn-secondary fade_in"
+            >Career</a
+          >
+          <!-- Link to the "Career" page, styled as a secondary button with a fade-in animation. -->
+          <a
+            href="{{ url_for('projects.default_projects') }}"
+            class="btn btn-primary fade_in"
+            >View My Portfolio</a
+          >
+          <!-- Link to the "Projects" page, styled as a primary button with a fade-in animation. -->
+          <a
+            href="{{ url_for('cv_generator.generate_cv') }}"
+            class="btn btn-secondary fade_in"
+            >Generate CV</a
+          >
+          <!-- Link to the "CV Generator" page, styled as a secondary button with a fade-in animation. -->
+          <a
+            href="{{ url_for('contact.contact') }}"
+            class="btn btn-secondary fade_in"
+            >Contact</a
+          >
+          <!-- Link to the "Contact" page, styled as a secondary button with a fade-in animation. -->
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ==========================================================================
+      Bubbles Background
+     ========================================================================== -->
+<!-- Adds the background bubbles to the page -->
+<div class="bubbles"></div>
+<!-- Div that allows the bubble generation in HTML -->
+{% endblock %} {% block scripts %}
+<!-- Defines the scripts specific to this page. -->
+<script src="{{ url_for('static', filename='javascript/index.js') }}"></script>
+<!-- Links to the 'index.js' script in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %}

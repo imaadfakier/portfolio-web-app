@@ -1,0 +1,167 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  General Styles (h2, h3, h5, section p, section hr)
+   2.  Progress Bar Styles
+   3.  Bubbles Styles
+       3.1 Individual Bubble Containers
+       3.2 Bubbles
+   4.  Responsiveness
+   ========================================================================== */
+
+/* ==========================================================================
+    1. General Styles (h2, h3, h5, section p, section hr)
+   ========================================================================== */
+
+h2,
+h3,
+h5 {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+section p,
+section hr {
+  padding-bottom: 24px;
+}
+
+section h5 {
+  padding-top: 24px;
+}
+
+/* Remove padding bottom from py-5 utility class */
+section div.py-5 {
+  padding-bottom: 0 !important;
+}
+
+/* ==========================================================================
+    2. Progress Bar Styles
+   ========================================================================== */
+
+.custom-progress {
+  position: relative;
+  height: 30px;
+  background-color: #ddd; /* Add a background color for the remaining progress */
+  border-radius: 5px; /* Optional: Makes it look smoother */
+  overflow: hidden;
+  margin: 10px 0; /* 10px above and below */
+  box-shadow: 0 0 10px #aaa;
+}
+
+.custom-progress-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 0%; /* Start empty */
+  background: linear-gradient(
+    45deg,
+    #007bff,
+    #0056b3,
+    #007bff
+  ); /* Blue Shine */
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  box-shadow: 0 0 10px 0px rgba(0, 123, 255, 0.8);
+  transition: width 3s ease;
+}
+
+.custom-progress-bar-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 30px; /* Matches height for vertical centering */
+  color: white; /* Ensures text is visible on both the blue and gray sections */
+}
+
+/* Only applies once progress is set to prevent flickering */
+.shiny-animation {
+  animation: shine 3s linear infinite, end 1.5s ease-in-out infinite alternate;
+}
+
+/* Animates the shining effect */
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Makes the bar glow */
+@keyframes end {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 0px rgba(0, 123, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(0, 123, 255, 1);
+  }
+}
+
+/* ==========================================================================
+    3. Bubbles Styles
+   ========================================================================== */
+
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure bubbles are behind the about section */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 3.1 Individual Bubble Containers */
+.circle_container {
+  position: absolute;
+  top: 0; /* Start at the top */
+  left: 0;
+  transform-origin: top right;
+  animation: rotateBubbles 15s linear infinite;
+}
+
+/* 3.2 Bubbles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #2980b9, #6dd5fa);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  animation-name: moveDown;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* Movement from top to bottom */
+@keyframes moveDown {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+    4. Responsiveness
+   ========================================================================== */
+
+@media (max-width: 900px) /*, (max-height: 768px) */ {
+  #about {
+    padding: 50px;
+  }
+}

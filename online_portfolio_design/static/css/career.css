@@ -1,0 +1,274 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  Section Styles (General)
+       1.1. Section Headers (h2, h4, h5)
+       1.2. Section Content (section p, section hr)
+   2.  Bubbles Styles
+       2.1. Individual Bubble Containers
+       2.2. Bubbles
+   3.  Section IDs (experience, education, certifications)
+   4.  Responsiveness
+   ========================================================================== */
+
+/* ==========================================================================
+    1. Section Styles (General)
+   ========================================================================== */
+
+section#career {
+  /* Removes padding from the career section. */
+  padding: 0 !important;
+}
+
+section#experience,
+section#education,
+section#certifications {
+  /* Centers text within the experience, education, and certifications sections. */
+  text-align: center;
+}
+
+/* 1.1 Section Headers (h2, h4, h5) */
+section div h2 {
+  /* Styles h2 headers within the sections, removing bottom margin and adding padding. */
+  margin-bottom: 0;
+  padding-bottom: 8px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+section div h4,
+section div h5 {
+  /* Styles h4 and h5 headers within the sections. */
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* 1.2 Section Content (section p, section hr) */
+#certifications > div > h2 {
+  /* Adds padding below the h2 in the certifications section. */
+  padding-bottom: 48px;
+}
+
+section#experience ul,
+section#education ul,
+section#certifications ul {
+  /* Removes default margins and padding from unordered lists within the sections. */
+  margin-bottom: 0;
+  padding: 0;
+}
+
+section#experience ul li,
+section#education ul li,
+section#certifications ul li {
+  /* Adds padding to list items within the sections. */
+  padding: 20px 0;
+}
+
+.animatable {
+  /* initially hide animatable objects */
+  visibility: hidden;
+
+  /* initially pause animatable objects their animations */
+  animation-play-state: paused;
+}
+
+/* show objects being animated */
+.animated {
+  visibility: visible;
+  animation-fill-mode: both;
+  animation-duration: 1s; /* or adjust the duration as needed */
+  animation-play-state: running;
+}
+
+@keyframes fadeIn {
+  0%,
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-2000px);
+  }
+  60% {
+    transform: translateX(20px);
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(2000px);
+  }
+  60% {
+    transform: translateX(-20px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animated.bounceInRight {
+  animation-name: bounceInRight;
+}
+
+.animated.bounceInLeft {
+  animation-name: bounceInLeft;
+}
+
+.animated.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bounceOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(2000px); /* Move it far to the right */
+  }
+}
+
+@keyframes bounceOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-2000px); /* Move it far to the left */
+  }
+}
+
+.animated.fadeOut {
+  animation-name: fadeOut;
+}
+
+.animated.bounceOutRight {
+  animation-name: bounceOutRight;
+}
+
+.animated.bounceOutLeft {
+  animation-name: bounceOutLeft;
+}
+
+/* ==========================================================================
+    2. Bubbles Styles
+   ========================================================================== */
+
+.bubbles {
+  /* Styles the container for the bubble animation, positioning it behind the career section. */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure bubbles are behind the career section: Positions the bubbles behind other content. */
+  overflow: hidden; /* Hides any bubbles that overflow the container. */
+  pointer-events: none; /* Allows clicks to pass through the bubbles to elements underneath. */
+}
+
+/* 2.1 Individual Bubble Containers */
+.circle_container {
+  /* Styles the individual bubble containers, positioning them at the top and animating their movement. */
+  position: absolute;
+  top: 0; /* Start at the top:  Sets the initial vertical position of the container. */
+  left: 0;
+  transform-origin: top right; /* Defines the point around which the container rotates. */
+  animation: rotateBubbles 15s linear infinite; /* Animates the rotation of the container. */
+}
+
+/* 2.2 Bubbles */
+.circle {
+  /* Styles the individual bubbles, creating a circular shape with a gradient and animation. */
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    #2980b9,
+    #6dd5fa
+  ); /* Applies a gradient background. */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow. */
+  opacity: 0.8; /* Sets the transparency of the bubbles. */
+  animation-name: moveDown; /* Refers to the name of the animation. */
+  animation-duration: 20s; /* Sets the duration of the animation. */
+  animation-iteration-count: infinite; /* Sets the animation to repeat infinitely. */
+  animation-timing-function: linear; /* Sets the animation to have a constant speed. */
+}
+
+/* Movement from top to bottom */
+@keyframes moveDown {
+  /* Animates the movement of the bubbles from the top to the bottom. */
+  0% {
+    transform: translateY(-10vh); /* Start just above the viewport. */
+    opacity: 0; /* Start invisible. */
+  }
+
+  10% {
+    opacity: 1; /* Fade in slightly. */
+  }
+
+  90% {
+    opacity: 0.5; /* Reduce visibility as it nears the end. */
+  }
+
+  100% {
+    transform: translateY(
+      110vh
+    ); /* Move far beyond the bottom of the viewport. */
+    opacity: 0; /* Fade out completely. */
+  }
+}
+
+/* ==========================================================================
+    3. Section IDs (experience, education, certifications)
+   ========================================================================== */
+
+#experience {
+  /* Removes padding from the bottom of the experience section. */
+  padding-bottom: 0 !important;
+}
+
+.skills-paragraph {
+  /* Styles the paragraph displaying the skills, applying the Bebas Neue font. */
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* ==========================================================================
+    4. Responsiveness
+   ========================================================================== */
+
+@media (max-width: 650px) {
+  /* Adjusts the padding on the sections for smaller screens to prevent content from touching the edges. */
+  section#experience,
+  section#education,
+  section#certifications div.col-md-6 {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}

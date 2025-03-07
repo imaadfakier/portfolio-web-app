@@ -1,0 +1,110 @@
+<!-- ==========================================================================
+     about.html
+     ========================================================================== -->
+<!-- This template renders the About Me page, displaying personal information, skills, and education details. -->
+
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements. -->
+
+{% block title %} About Me {% endblock %}
+<!-- Defines the title for this page, which will be inserted into the base template. -->
+
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page. -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/about.css') }}"
+/>
+<!-- Links to the 'about.css' stylesheet in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %} {% block content %}
+<!-- Defines the main content of the page. -->
+<!-- ==========================================================================
+      About Section
+     ========================================================================== -->
+<!-- The main section of the page, containing the personal introduction, skills, and education details. -->
+<section id="about" class="py-5">
+  <!-- Section with ID 'about' and padding on top and bottom (py-5). -->
+  <div class="container">
+    <!-- Container class provides responsive width. -->
+    <div class="row">
+      <!-- Row class for creating a horizontal grouping of columns. -->
+
+      <!-- ==========================================================================
+            Image Column
+           ========================================================================== -->
+      <!-- Column for displaying the profile image. -->
+      <div class="col-lg-4 col-md-12">
+        <!-- Column taking up 4 columns on large (lg) screens, full width on medium (md) screens and smaller. -->
+        <img
+          src="{{ url_for('static', filename='images/img_1014.jpg') }}"
+          alt="Me In University"
+          class="img-fluid w-100 h-100 hidden_slide_in slideInFromLeft"
+          style="object-fit: cover; border-radius: 10px"
+        />
+        <!-- Displays the profile image, using Flask's url_for function to generate the URL, setting alt text for accessibility, applying responsive image styling (img-fluid), setting width and height to 100%, applying object-fit to cover the entire area, rounding the corners, and applying a hidden slide-in animation from the left (slideInFromLeft). -->
+      </div>
+
+      <!-- ==========================================================================
+            About Content Column
+           ========================================================================== -->
+      <!-- Column for displaying the about me content and skills. -->
+      <div class="col-lg-8 col-md-12 py-5">
+        <!-- Column taking up 8 columns on large (lg) screens, full width on medium (md) screens and smaller, and adding padding on top and bottom (py-5). -->
+        <h2 class="hidden_slide_in slideInFromRight">About Me</h2>
+        <!-- Heading with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the right (slideInFromRight). -->
+        <p class="fade_in">
+          A highly motivated and results-oriented software developer with 5+
+          years of experience in Python development, specializing in web
+          development, data analysis, and automation.
+        </p>
+        <!-- Paragraph with class 'fade_in', a simple description, but adds class for animation purposes. -->
+        <hr class="hidden_slide_in slideInFromRight" />
+        <!-- Horizontal rule with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the right (slideInFromRight). -->
+
+        <!-- ==========================================================================
+              Skills Section
+             ========================================================================== -->
+        <!-- Section for listing technical skills. -->
+        <div class="skills">
+          <!-- Div with class 'skills', for style management -->
+          <h3 class="hidden_slide_in slideInFromRight">Technical Skills</h3>
+          <!-- Subheading with classes for applying a hidden slide-in animation (hidden_slide_in) and sliding in from the right (slideInFromRight). -->
+          {% for category in skills_data %}
+          <!-- Loops through each category of skills in the 'skills_data' list passed from the Flask route. -->
+          <h5 class="fade_in">{{ category.name }}</h5>
+          <!-- Displays the category name, and adds a class for a subtle load-in effect. -->
+          {% for skill in category.skills %}
+          <!-- Loops through each skill within the category. -->
+          <div
+            class="custom-progress hidden_slide_in slideInFromRight"
+            title="{{ skill.level }} ({{ skill.progress }}%)"
+            data-skill-progress="{{ skill.progress }}"
+          >
+            <!-- Displays the skill progress bar, setting the title and skill progress from the data. -->
+            <div
+              class="custom-progress-bar"
+              role="progressbar"
+              style="width: 0%"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <!-- Inner progress bar element, setting initial width to 0%, ARIA attributes for accessibility. -->
+              <span class="custom-progress-bar-text">{{ skill.name }}</span>
+              <!-- Displays the skill name within the progress bar. -->
+            </div>
+          </div>
+          {% endfor %}
+          <!-- End of the loop through the skills. -->
+          {% endfor %}
+          <!-- End of the loop through the skill categories. -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<!-- Defines the scripts specific to this page. -->
+<script src="{{ url_for('static', filename='javascript/about.js') }}"></script>
+<!-- Links to the 'about.js' script in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %}

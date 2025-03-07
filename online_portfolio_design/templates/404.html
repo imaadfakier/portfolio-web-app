@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements. -->
+
+{% block title %} 404 {% endblock %}
+<!-- Defines the title for this page, which will be inserted into the base template. -->
+
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page. -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/404.css') }}" />
+<!-- Links to the '404.css' stylesheet in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %} {% block content %}
+<!-- Defines the main content of the page. -->
+<!-- ==========================================================================
+      404 Section
+     ========================================================================== -->
+<!-- The main section of the page, displaying the 404 error message and a visual representation (lamp). -->
+<section id="fourofour" class="py-5">
+  <!-- Section with ID 'fourofour' and padding on top and bottom (py-5). -->
+  <div class="container">
+    <!-- Container class provides responsive width. -->
+    <div class="row align-items-center">
+      <!-- Row class for creating a horizontal grouping of columns and vertically centering the content. -->
+      <div class="col-lg-12 text-center">
+        <!-- Column taking up full width on large (lg) screens and larger, centering the text (text-center). -->
+
+        <!-- ==========================================================================
+              Lamp
+             ========================================================================== -->
+        <!-- Visual representation of a lamp (using nested divs for styling). -->
+        <div class="lamp__wrap">
+          <!-- Wrapper for the lamp elements. -->
+          <div class="lamp">
+            <!-- Main lamp container. -->
+            <div class="cable"></div>
+            <!-- Cable of the lamp. -->
+            <div class="cover"></div>
+            <!-- Cover of the lamp. -->
+            <div class="in-cover">
+              <!-- Inner part of the cover. -->
+              <div class="bulb"></div>
+              <!-- Bulb of the lamp. -->
+            </div>
+            <div class="light"></div>
+            <!-- Light emitted by the lamp. -->
+          </div>
+        </div>
+
+        <!-- ==========================================================================
+              Error Content
+             ========================================================================== -->
+        <!-- Container for the error message. -->
+        <section class="error">
+          <!-- Section with class 'error', to specify error parameters -->
+          <div class="error__content">
+            <!-- Div with class 'error__content' to contain all contents -->
+            <div class="error__message message">
+              <!-- Div with classes 'error__message message' for a nice message formatting -->
+              <h1 class="message__title">Page Not Found</h1>
+              <!-- Title/Heading of the Message -->
+              <p class="message__text">
+                <!-- body message of the errormsg -->
+                Sorry, the page you were looking for isn't found here.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<!-- Defines the scripts specific to this page. -->
+<script src="{{ url_for('static', filename='javascript/404.js') }}"></script>
+<!-- Links to the '404.js' script in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %}

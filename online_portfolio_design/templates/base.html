@@ -1,0 +1,252 @@
+<!-- ==========================================================================
+      Base HTML Template
+     ========================================================================== -->
+<!-- This is the base HTML template for the entire website, providing the basic structure, meta tags, CSS links, navigation, and JavaScript includes. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ==========================================================================
+          Meta Tags
+         ========================================================================== -->
+    <!-- Sets character set, viewport, and other meta information for the document. -->
+    <meta charset="UTF-8" />
+    <!-- Specifies the character encoding for the document. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Configures the viewport for responsive design. -->
+
+    <!-- ==========================================================================
+          Title and Favicon
+         ========================================================================== -->
+    <!-- Sets the title of the page and links to the favicon. -->
+    <title>Imaad Fakier - Portfolio - {% block title %}{% endblock %}</title>
+    <!-- Sets the title of the page, including a default part and a placeholder for page-specific titles. -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+    <!-- Links to the favicon file, using Flask's url_for function to generate the URL. -->
+
+    <!-- ==========================================================================
+          CSS Links
+         ========================================================================== -->
+    <!-- Links to external CSS stylesheets, including Bootstrap and Font Awesome. -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Links to the Bootstrap CSS framework for styling. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <!-- Links to the Font Awesome CSS library for icons. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Another link to Font Awesome, with integrity and crossorigin attributes for security. -->
+
+    <!-- ==========================================================================
+          Font Links
+         ========================================================================== -->
+    <!-- Links to Google Fonts for custom typography. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Establishes a preconnection to Google Fonts for faster loading. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Establishes a preconnection to Google Fonts' static content. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Links to specific fonts from Google Fonts, including Bebas Neue and Roboto. -->
+
+    <!-- ==========================================================================
+          Custom CSS
+         ========================================================================== -->
+    <!-- Links to custom CSS stylesheets for the website. -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <!-- Links to the main stylesheet (styles.css) in the 'static' directory, using Flask's url_for function to generate the URL. -->
+    {% if request.path != '/' %}
+    <!-- Conditional: If the current route is not the homepage ("/") -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navbar.css') }}"
+    />
+    <!-- Links to the navbar stylesheet (navbar.css) in the 'static' directory. -->
+    <script src="{{ url_for('static', filename='javascript/navbar/modernizr.js') }}"></script>
+    <!-- Links to the modernizr script for Navbar -->
+    {% endif %}
+
+    <!-- ==========================================================================
+          Block for Page-Specific Styles
+         ========================================================================== -->
+    <!-- A block for including page-specific stylesheets. -->
+    {% block stylesheets %} {% endblock %}
+  </head>
+  <body>
+    <!-- ==========================================================================
+          Conditional Content Based on Route
+         ========================================================================== -->
+    <!-- Includes different content sections based on the current route. -->
+    {% block show_loader %} {% if request.path == '/' %}
+    <!-- Home Page Loader Section -->
+    <div class="home-loading-container">
+      <!-- Container for the loading animation on the homepage. -->
+      <h1 class="home-loading-text">LOADING<span class="dots">.</span></h1>
+      <!-- The text "LOADING" with animated dots. -->
+    </div>
+    {% endif %} {% if request.path in ['/about', '/career', '/projects',
+    '/cv-generator', '/contact'] %}
+
+    <!-- ==========================================================================
+          Bubbles Background
+         ========================================================================== -->
+    <!-- Bubbles are added only for specific routes -->
+    <div class="bubbles"></div>
+    <!-- Bubbles backgrund added -->
+    <!-- Other Pages Loader Section -->
+    <section class="loading-container">
+      <!-- Container for the loading indicator on other pages. -->
+      <div class="loading-text">0%</div>
+      <!-- The loading percentage text (updated by JavaScript). -->
+    </section>
+    {% endif %} {% endblock %} {% if request.path != '/' %}
+
+    <!-- ==========================================================================
+          Navigation Bar
+         ========================================================================== -->
+    <!-- Includes the navigation bar on all pages except the homepage. -->
+    <div class="nav-container">
+      <!-- Container for the navigation menu. -->
+      <div class="component">
+        <!-- Start Nav Structure -->
+        <button class="cn-button" id="cn-button">+</button>
+        <!-- Button to toggle the circular navigation menu. -->
+        <div class="cn-wrapper csstransforms" id="cn-wrapper">
+          <!-- Wrapper for the circular navigation menu. -->
+          <ul>
+            <!-- List of navigation links. -->
+            <li class="cn-list" title="Home">
+              <!-- List item for the "Home" link. -->
+              <a href="{{ url_for('home.index') }}"
+                ><i class="fa fa-home"></i>
+              </a>
+              <!-- Link to the homepage, with a Font Awesome home icon. -->
+            </li>
+            <li class="cn-list" title="About">
+              <!-- List item for the "About" link. -->
+              <a href="{{ url_for('about.about') }}"
+                ><i class="fa fa-user"></i>
+              </a>
+              <!-- Link to the about page, with a Font Awesome user icon. -->
+            </li>
+            <li class="cn-list" title="Career">
+              <!-- List item for the "Career" link. -->
+              <a href="{{ url_for('career.career') }}"
+                ><i class="fa fa-briefcase"></i>
+              </a>
+              <!-- Link to the career page, with a Font Awesome briefcase icon. -->
+            </li>
+            <li class="cn-list" title="Projects">
+              <!-- List item for the "Projects" link. -->
+              <a href="{{ url_for('projects.default_projects') }}"
+                ><i class="fa fa-folder-tree"></i>
+              </a>
+              <!-- Link to the projects page, with a Font Awesome folder-tree icon. -->
+            </li>
+            <li class="cn-list" title="contact">
+              <!-- List item for the "Contact" link. -->
+              <a href="{{ url_for('contact.contact') }}"
+                ><i class="fa fa-envelope"></i>
+              </a>
+              <!-- Link to the contact page, with a Font Awesome envelope icon. -->
+            </li>
+          </ul>
+        </div>
+        <div id="cn-overlay" class="cn-overlay"></div>
+        <!-- End Nav Structure -->
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ==========================================================================
+          CV Generator Link (Conditional)
+         ========================================================================== -->
+    <!-- Displays a link to the CV generator on all pages except the homepage and the CV generator page itself. -->
+    {% if request.path not in ['/', '/cv-generator'] %}
+    <!-- Conditional: If the current route is not the homepage or the CV generator page. -->
+    <div
+      class="cv-generator-link fade_in"
+      onclick="document.querySelector('.cv-btn').click()"
+    >
+      <!-- Container for the CV generator link, with classes for applying a fade-in animation. -->
+      <a href="{{ url_for('cv_generator.generate_cv') }}" class="cv-btn">
+        <!-- Link to the CV generator page, with the class 'cv-btn'. -->
+        <i class="fas fa-file-alt"></i>
+        <!-- Font Awesome file icon. -->
+        <span class="cv-text">CV Generator</span>
+        <!-- The text "CV Generator". -->
+      </a>
+    </div>
+    {% endif %}
+
+    <!-- ==========================================================================
+          Main Content Block
+         ========================================================================== -->
+    <!-- A block for including the main content of each page. -->
+    <main>{% block content %}{% endblock %}</main>
+    <!-- This code allows other HTML files to append here -->
+
+    <!-- ==========================================================================
+          Footer Include
+         ========================================================================== -->
+    <!-- Includes the footer template. -->
+    {% include "footer.html" %}
+    <!-- This code allows other HTML files to append here -->
+
+    <!-- ==========================================================================
+          JavaScript Links
+         ========================================================================== -->
+    <!-- Links to JavaScript files, including jQuery, Popper.js, Bootstrap, and custom scripts. -->
+    {% if request.path in ['/cv-generator', '/contact'] %}
+    <!-- Conditional to include this block only if the current route is /cv-generator or /contact -->
+    <script>
+      let reCAPTCHASiteKey = "{{ config['RECAPTCHA_PUBLIC_KEY'] }}";
+    </script>
+    <!-- Declares a JavaScript variable reCAPTCHASiteKey and sets it to public key, This value is public -->
+    {% endif %}
+
+    <!-- Linking JQuery for Javascript functions to work -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Linking PopperJs for Javascript functions to work -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <!-- Linking Bootstrap for Javascript functions to work -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Linking Javascript/scripts.js for Javascript functions to work -->
+    <script src="{{ url_for('static', filename='javascript/scripts.js') }}"></script>
+    <!-- Links to the main JavaScript file (scripts.js) in the 'static' directory, using Flask's url_for function to generate the URL. -->
+
+    {% if request.path != '/' %}
+    <!-- Conditional: If the current route is not the homepage ("/") -->
+    <script src="{{ url_for('static', filename='javascript/navbar/navbar.js') }}"></script>
+    <!-- Links to the navbar JavaScript file (navbar.js) in the 'static' directory. -->
+    {% endif %}
+
+    <!-- ==========================================================================
+          Block for Page-Specific Scripts
+         ========================================================================== -->
+    <!-- A block for including page-specific JavaScript files. -->
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

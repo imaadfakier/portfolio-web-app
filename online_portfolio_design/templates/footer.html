@@ -1,0 +1,112 @@
+{% if request.path != "/" %}
+
+<!-- ==========================================================================
+      Footer Section (Conditional Rendering)
+     ========================================================================== -->
+<!-- This footer section is displayed on all pages *except* the homepage ("/") -->
+<footer class="footer py-4 bg-dark text-white fade_in">
+  <!-- The 'fade_in' class triggers a fade-in animation when the footer appears (handled by CSS/JS). -->
+  <div class="container text-center">
+    <!-- The container class provides responsive width and centers the content. -->
+
+    <!-- ==========================================================================
+          Copyright Text
+         ========================================================================== -->
+    <p>
+      Copyright © Imaad Fakier
+      <!-- The copyright notice with the author's name. -->
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      <!-- JavaScript to dynamically display the current year. -->
+    </p>
+
+    <!-- ==========================================================================
+          Social Media Links
+         ========================================================================== -->
+    <!-- Links to the author's social media profiles. -->
+    <a
+      href="https://www.linkedin.com/in/imaad-fakier-665007203/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-linkedin"
+      ><i class="fab fa-linkedin"></i
+    ></a>
+    <!-- LinkedIn profile link. 'target="_blank"' opens the link in a new tab.
+             'rel="noopener noreferrer"' improves security when opening external links.
+             'btn-social' and 'btn-linkedin' are CSS classes for styling.
+             'fab fa-linkedin' is a Font Awesome icon class. -->
+    <a
+      href="https://github.com/imaadfakier"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-github"
+      ><i class="fab fa-github"></i
+    ></a>
+    <!-- GitHub profile link.  Similar attributes and classes as the LinkedIn link. -->
+    <a
+      href="https://gist.github.com/imaadfakier"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-github"
+      ><i class="fab fa-github"></i
+    ></a>
+    <!-- GitHub Gist profile link. Similar attributes and classes as the LinkedIn link. -->
+  </div>
+</footer>
+
+{% else %}
+
+<!-- ==========================================================================
+      Footer Section (Homepage Footer)
+     ========================================================================== -->
+<!-- This footer section is displayed *only* on the homepage ("/") -->
+<footer class="footer py-4 bg-dark text-white">
+  <!-- Basic footer styling: padding, background color, text color.  No fade-in animation. -->
+  <div class="container text-center">
+    <!-- Centers the content horizontally. -->
+
+    <!-- ==========================================================================
+          Copyright Text
+         ========================================================================== -->
+    <p>
+      Copyright © Imaad Fakier
+      <!-- Copyright notice. -->
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      <!-- Dynamically updates the year. -->
+    </p>
+
+    <!-- ==========================================================================
+          Social Media Links
+         ========================================================================== -->
+    <!-- Social media links. -->
+    <a
+      href="https://www.linkedin.com/in/imaad-fakier-665007203/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-linkedin"
+      ><i class="fab fa-linkedin"></i
+    ></a>
+    <!-- LinkedIn link. -->
+    <a
+      href="https://github.com/imaadfakier"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-github"
+      ><i class="fab fa-github"></i
+    ></a>
+    <!-- GitHub link. -->
+    <a
+      href="https://gist.github.com/imaadfakier"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-social btn-github"
+      ><i class="fab fa-github"></i
+    ></a>
+    <!-- GitHub Gist link. -->
+  </div>
+</footer>
+
+{% endif %}

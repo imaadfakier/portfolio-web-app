@@ -1,0 +1,511 @@
+/* ==========================================================================
+    Table of Contents
+   ========================================================================== */
+
+/* 1. Bubbles Styles */
+/* 2. Frosted Glass Card with Enhanced Blue Gradient Border Styles */
+/* 3. Pagination Styles */
+/* 4. Overview Styles */
+/* 5. Fade Animations */
+/* 6. Placeholder Effect Styles */
+/* 7. Masonry Layout Styles */
+/* 8. Project Detail Page-Specific Styles */
+/* 9. Responsiveness */
+
+/* ==========================================================================
+    1. Bubbles Styles
+   ========================================================================== */
+
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure bubbles are behind the about section */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Individual Bubble Containers */
+.circle_container {
+  position: absolute;
+  top: 0; /* Start at the top */
+  left: 0;
+  transform-origin: top right;
+  animation: rotateBubbles 15s linear infinite;
+}
+
+/* Bubbles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #2980b9, #6dd5fa);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  animation-name: moveDown;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* Movement from top to bottom */
+@keyframes moveDown {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+    2. 🌊 Frosted Glass Card with Enhanced Blue Gradient Border Styles
+   ========================================================================== */
+
+.card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px); /* Stronger glass blur */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 0 10px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Lift & Glow Effect */
+.card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Rounded Image Edges */
+.card-img-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Soft Glow on Hover */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* 🌊 Smooth Animated Blue Gradient Border */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -2px; /* Extends slightly beyond card */
+  z-index: -1;
+  border-radius: 18px;
+  background: linear-gradient(
+    45deg,
+    #8fcafc,
+    #a6d8ff,
+    #c2e2ff,
+    /* #e1f2ff,
+      #c2e2ff,
+      #a6d8ff,
+      #8fcafc */
+  );
+  background-size: 400% 400%;
+  animation: softBlueBorderGlow 6s ease infinite;
+}
+
+.card-title {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* 🌊 Soft Animated Flow */
+@keyframes softBlueBorderGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 🔹 Glass Effect Buttons */
+.btn {
+  backdrop-filter: blur(5px);
+  /* border-radius: 10px; */
+}
+
+/* ==========================================================================
+    3. Pagination Styles
+   ========================================================================== */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pagination {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 10px 15px;
+  border-radius: 12px;
+  /* display: inline-flex; */
+  display: flex;
+}
+
+.page-link {
+  color: #007bff;
+  background-color: #fff;
+  border: none;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+}
+
+.page-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.page-item.active .page-link {
+  background: rgba(0, 123, 255, 0.75);
+  color: white;
+  font-weight: bold;
+}
+
+.page-item.disabled .page-link {
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+ul.pagination {
+  margin-bottom: 48px;
+}
+
+ul.pagination li {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+/* ==========================================================================
+    4. Overview Styles
+   ========================================================================== */
+
+#overviewContent/*, 
+#truncatedOverviewContent */ {
+  position: absolute; /* Make it overlay */
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5); /* Transparent background */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  border-radius: 8px;
+  /* padding: 16px; */
+  z-index: 99999; /* Ensure it stays on top */
+  padding-right: 50px !important;
+  padding-left: 50px !important;
+  height: 100vh;
+  /* height: 100%; */
+  overflow-y: auto;
+}
+
+#overviewButton {
+  margin: 50px 50px 0 50px;
+  transition: margin-bottom 0.3s ease-in-out; /* Add the transition */
+}
+
+.card-body ul li h4 {
+  padding: 20px 0 48px 0;
+  margin-bottom: 0;
+}
+
+.overview-projects {
+  list-style: none; /* Remove bullet points if desired */
+  /* padding: 0; */ /* Remove default padding if desired */
+  /* margin: 0; */ /* Remove default margin if desired */
+  column-count: 2; /* Adjust number of columns as needed */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  padding-left: 0;
+}
+
+.overview-projects li:nth-child(odd) {
+  /* Select odd-numbered list items (left column) */
+  grid-column: 1;
+  text-align: right !important;
+  margin-right: 10px;
+}
+
+.overview-projects li:nth-child(even) {
+  /* Select even-numbered list items (right column) */
+  grid-column: 2;
+  text-align: left !important;
+  margin-left: 10px;
+}
+
+.overview-experience_description {
+  margin: 16px 0 16px 0;
+}
+
+.mt-4:last-child {
+  padding-bottom: 16px;
+}
+
+/* ==========================================================================
+    5. Fade Animations
+   ========================================================================== */
+
+.fade-in {
+  /* Styles for elements that fade in, initially hidden. */
+  opacity: 0;
+  /* display: block; */
+  /* visibility: visible; */
+  animation: fadeIn 1s forwards; /* Apply fadeIn animation, which means, retain properties after animation */
+}
+
+.fade_out {
+  /* Styles for elements that fade out, initially visible. */
+  opacity: 1;
+  /* display: none; */
+  /* visibility: hidden; */
+  animation: fadeOut 1s forwards; /* Apply fadeOut animation, which means, retain properties after animation */
+}
+
+.hidden {
+  display: none;
+  /* transition: display 1s ease-in-out; */
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  /* Defines the fade-in animation. */
+  from {
+    opacity: 0; /* Start transparent. */
+  }
+  to {
+    opacity: 1; /* Fade to fully opaque. */
+  }
+}
+
+@keyframes fadeOut {
+  /* Defines the fade-in animation. */
+  from {
+    opacity: 1; /* Start completely opaque. */
+  }
+  to {
+    opacity: 0; /* Fade to fully transparent. */
+  }
+}
+
+/* ==========================================================================
+    6. Placeholder Effect Styles
+   ========================================================================== */
+
+/* 2.1. Placeholder Image */
+/* .project-placeholder .card img { */
+.project-placeholder .card-img-top {
+  /* Styles the placeholder image, using a shimmer animation to indicate loading. */
+  /* background-color: #f0f0f0; Placeholder background color: Sets a placeholder background color. */
+  /* height: 300px;
+  width: 100%; */
+  /* Adjust as needed */
+  animation: shimmer 1.5s infinite linear; /* Applies a shimmer animation for a loading effect. */
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 10%,
+    #f6f7f8 20%,
+    #f6f7f8 100%
+  ); /* Creates a gradient for the shimmer effect. */
+  /* background-size (, in this case, of the linear-gradient): (x-axis is equal to) 200%
+     (y-axis is equal to) 100% */
+  background-size: 200% 100%; /* Defines the size of the background gradient for the shimmer effect. */
+  animation: bgPos 1s linear infinite; /* Animate the background position. */
+}
+
+/* 2.2. Placeholder Text and Buttons */
+.project-placeholder .card-title,
+.project-placeholder .card-text,
+.project-placeholder .btn {
+  /* Styles the placeholder text and buttons within the project card, using a shimmer animation. */
+  background-color: #f0f0f0;
+  color: transparent !important; /* Hide the text: Makes the text transparent, so the background shimmer is visible. */
+  animation: shimmerText 1.5s infinite linear; /* Applies the shimmerText animation for a loading effect. */
+  border-radius: 5px;
+}
+
+.animated-bg {
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 10%,
+    #f6f7f8 20%,
+    #f6f7f8 100%
+  );
+  /* background-size (, in this case, of the linear-gradient): (x-axis is equal to) 200%
+                                                           (y-axis is equal to) 100% */
+  background-size: 200% 100%;
+  animation: bgPos 1s linear infinite;
+}
+
+.animated-bg-text {
+  border-radius: 50px;
+  display: inline-block;
+  margin: 0;
+  height: 10px;
+  width: 100%;
+}
+
+/* 6.1. Shimmer Animation */
+@keyframes shimmer {
+  /* Defines the shimmer animation, shifting the background position. */
+  0% {
+    background-position: 100% 0; /* Start the gradient at the right. */
+  }
+
+  100% {
+    background-position: -100% 0; /* Shift the gradient to the left. */
+  }
+}
+
+/* 6.2. Shimmer Text Animation */
+@keyframes shimmerText {
+  /* Defines the shimmer animation for text, shifting the background position. */
+  0% {
+    background-position: 100% 0; /* Start the gradient at the right. */
+  }
+
+  100% {
+    background-position: -100% 0; /* Shift the gradient to the left. */
+  }
+}
+
+/* 6.3. Background Position Animation */
+@keyframes bgPos {
+  /* Animates the background position. */
+  0% {
+    background-position: 50% 0%; /* Set background position */
+  }
+
+  100% {
+    background-position: -150% 0; /* Set background position */
+  }
+}
+
+/* ==========================================================================
+    7. Masonry Layout Styles
+   ========================================================================== */
+
+.isotope-item .card {
+  width: 346px; /* Default width */
+  max-width: 100%; /* Ensure it doesn't exceed the container */
+  /* transition: width 0.3s ease-in-out; */
+}
+
+.isotope-item .card img {
+  width: 100%;
+  height: 300px; /* Or any preferred height */
+  object-fit: cover; /* Maintain aspect ratio while filling the space */
+}
+
+/* ==========================================================================
+    8. Project Detail Page-Specific Styles
+   ========================================================================== */
+
+#projects {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: row; /* ✅ Change from column to row */
+  flex-wrap: wrap; /* ✅ Ensures items wrap to a new row if necessary */
+  justify-content: center; /* ✅ Centers items nicely */
+}
+
+section.project-listings h2 {
+  font-family: "Bebas Neue", sans-serif;
+  margin-bottom: 48px;
+}
+
+section#portfolio div h2 {
+  margin-bottom: 40px;
+}
+
+section#portfolio div h2,
+section#portfolio div h4,
+section#portfolio div h5 {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* ==========================================================================
+    9. Responsiveness
+   ========================================================================== */
+
+@media (max-width: 650px) {
+  #projects,
+  #portfolio {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}
+
+/* Adjust widths for smaller screens */
+@media (max-width: 1200px) {
+  .isotope-item .card {
+    /* width: 346px; */
+    /* width: 100%; */
+    width: 440px;
+    /* max-width: 100%; */
+  }
+}
+
+@media (max-width: 992px) {
+  .isotope-item .card {
+    width: 100%;
+    /* max-width: 100%; */
+  }
+}
+
+@media (max-width: 768px) {
+  .isotope-item .card {
+    width: 100%;
+    /* max-width: 100%; */
+  }
+}
+
+@media (max-width: 576px) {
+  .isotope-item .card {
+    width: 100%;
+    /* max-width: 100%; */
+  }
+}

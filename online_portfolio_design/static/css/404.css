@@ -1,0 +1,284 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  BODY
+   2.  CONTENT
+       2.1. Section Error
+       2.2. Lamp
+   3.  RESPONSIVE
+   ========================================================================== */
+
+/* ==========================================================================
+    1. BODY
+   ========================================================================== */
+
+section#fourofour {
+  padding: 0 !important;
+}
+
+/* Prevent vertical overflow */
+body,
+html,
+.error {
+  overflow-y: auto;
+  max-height: 100vh;
+  margin: 0; /* Remove any margin that may prevent centering */
+}
+
+/* ==========================================================================
+    2. CONTENT
+   ========================================================================== */
+
+/* 2.1. Section error */
+/* Ensure content is scrollable and footer remains visible */
+.error {
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the content */
+  align-items: center; /* Horizontally center the content */
+}
+
+.error__content {
+  text-align: center;
+  width: 100%; /* Ensure it takes full width */
+}
+
+.message__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 7.5rem;
+  padding-bottom: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.message__text {
+  font-family: "Montserrat", sans-serif;
+  line-height: 42px;
+  font-size: 18px;
+  padding: 0 60px;
+  max-width: 680px;
+  margin: auto;
+}
+/* 2.1. END Section Error */
+
+/* 2.3. Lamp */
+.lamp {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  margin: 0px auto;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: center top;
+  animation-timing-function: cubic-bezier(0.6, 0, 0.38, 1);
+  animation: move 5.1s infinite;
+}
+
+@keyframes move {
+  0% {
+    transform: rotate(40deg);
+  }
+  50% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(40deg);
+  }
+}
+
+.cable {
+  width: 8px;
+  height: 248px;
+  background-image: linear-gradient(rgb(32 148 218 / 70%), rgb(193 65 25)),
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+}
+
+.cover {
+  width: 200px;
+  height: 80px;
+  background: #0bd5e8;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  position: relative;
+  z-index: 200;
+}
+
+.in-cover {
+  width: 100%;
+  max-width: 200px;
+  height: 20px;
+  border-radius: 100%;
+  background: #08ffff;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  bottom: -9px;
+  z-index: 100;
+}
+
+.in-cover .bulb {
+  width: 50px;
+  height: 50px;
+  background-color: #08fffa;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: -20px;
+  margin: 0px auto;
+  -webkit-box-shadow: 0 0 15px 7px rgba(0, 255, 255, 0.8),
+    0 0 40px 25px rgba(0, 255, 255, 0.5),
+    -75px 0 30px 15px rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 25px 7px rgb(127 255 255 / 80%),
+    0 0 64px 47px rgba(0, 255, 255, 0.5), 0px 0 30px 15px rgba(0, 255, 255, 0.2);
+}
+
+/* Extend lamp light beyond viewport without affecting scroll */
+.light {
+  width: 300px;
+  height: 0px;
+  border-bottom: 120vh solid rgb(44 255 255 / 24%);
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  position: fixed; /* Keeps the light in place without affecting scroll height */
+  left: 50%;
+  top: 270px;
+  transform: translateX(-50%);
+  z-index: 1;
+  border-radius: 120px 120px 0px 0px;
+  pointer-events: none; /* Prevents interaction issues */
+}
+/* 2.3. END Lamp */
+
+/* ==========================================================================
+    3. RESPONSIVE
+   ========================================================================== */
+
+/* MEDIA QUERIES FIXED */
+
+/* Large screens */
+@media (max-width: 1400px) /*, (max-height: 900px) */ {
+  .error__content {
+    top: 55%;
+  }
+
+  .message__title {
+    font-size: 5.6rem;
+    padding-bottom: 20px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 900px) /*, (max-height: 768px) */ {
+  .message__title {
+    font-size: 4.5rem;
+    padding-bottom: 20px;
+  }
+
+  .error__content {
+    top: 55%;
+  }
+}
+
+/* Tablets */
+@media (max-width: 750px) /*, (max-height: 667px) */ {
+  body,
+  html {
+    overflow-y: auto; /* Ensure scrollability */
+    height: auto;
+  }
+
+  .error__content {
+    position: static;
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .error {
+    padding-top: 0;
+    min-height: 100vh;
+  }
+
+  .lamp {
+    zoom: 0.95;
+  }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 650px) /*, (max-height: 568px) */ {
+  .message__title {
+    font-size: 2.4rem;
+    padding-bottom: 20px;
+  }
+
+  .message__text {
+    font-size: 16px;
+    line-height: 2;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .lamp {
+    zoom: 0.95;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) /*, (max-height: 480px) */ {
+  .message__title {
+    font-size: 1.2rem;
+    padding-bottom: 20px;
+  }
+
+  .message__text {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+  }
+
+  .error__nav {
+    margin-top: 20px;
+  }
+}
+
+/* HEIGHT-BASED ZOOM ADJUSTMENTS FOR .lamp */
+
+@media (max-height: 900px) {
+  .lamp {
+    zoom: 0.9;
+  }
+}
+
+@media (max-height: 768px) {
+  .lamp {
+    zoom: 0.85;
+  }
+}
+
+@media (max-height: 667px) {
+  .lamp {
+    zoom: 0.8;
+  }
+}
+
+@media (max-height: 568px) {
+  .lamp {
+    zoom: 0.75;
+  }
+}
+
+@media (max-height: 480px) {
+  .lamp {
+    zoom: 0.7;
+  }
+}

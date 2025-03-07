@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements. -->
+
+{% block title %} {{ project.name }} {% endblock %}
+<!-- Defines the title for this page, which includes the project name. -->
+
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page. -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/projects.css') }}"
+/>
+<!-- Links to the 'projects.css' stylesheet in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %}
+
+<!-- Overriding Parent Loader Section Logic -->
+{% block show_loader %}
+<!-- Logic relating to if the loader function should show or not -->
+{% if is_valid_project_route(request.path) %}
+<!--  if the route is valid, then run -->
+<!-- ==========================================================================
+      Bubbles Background
+     ========================================================================== -->
+<!-- Bubbles are added only for specific routes to improve visual appeal -->
+<div class="bubbles"></div>
+<!-- create the element to make the visual effect on the page -->
+
+<section class="loading-container">
+  <!-- The code for the loading screen.  It gets the 0% number and makes it increase -->
+  <div class="loading-text">0%</div>
+  <!-- add the "0%" in there -->
+</section>
+{% endif %}
+<!-- end of the conditional route-->
+{% endblock %} {% block content %}
+<!-- All the content is put into blocks, like the text and pictures for the project -->
+<section id="portfolio" class="py-5">
+  <!-- the main portoflio in this file.  Added styling to the page.  Added a py-5 so that the content has padding-->
+  <div class="container">
+    <!-- the container that allows for the dynamic scale of the width-->
+    <h2 class="text-center fade_in">{{ project.name | safe }}</h2>
+    <!-- This code, centres the text, and will allow animated css. the code will take the value from the projects name to inject to the template  -->
+    <div class="row">
+      <!-- this code will create a Row/Section for the details/elements of  a code on this page with a scale and animated properties. -->
+      <div class="col-md-12">
+        <!-- size to what the card content to. It is 12 or 100% for the width -->
+        <div
+          class="card mb-4 project-placeholder fade_in"
+          style="display: none"
+        >
+          <!-- add css styling for the layout -->
+          <img
+            class="card-img-top animated-bg"
+            src="{{ url_for('static', filename='images/transparent-white-image.png') }}"
+            alt="Placeholder"
+          />
+          <!-- get a picture as a placeholder. This one has been animated too to look as if it is loading. -->
+          <div class="card-body">
+            <!-- code from bootstrap is added here to make the base content on this card, so that the text fits. This is the body for all codes  -->
+            <h5 class="card-title animated-bg animated-bg-text"></h5>
+            <!-- adds the title text as a prop, and make it animated-->
+            <p class="card-text animated-bg animated-bg-text"></p>
+            <!-- adds the text under it with animation for smooth load in. -->
+            <a href="#" class="btn btn-primary disabled">
+              Check Out Repository</a
+            >
+            <!-- adds a button, which is primary styled with the code disabled -->
+            <a href="#" class="btn btn-secondary disabled">Live Demo</a>
+            <!-- adds a button, which is secdonary styled with the code disabled.  -->
+          </div>
+        </div>
+
+        <div class="card mb-4 project-listing fade_in" style="display: none">
+          <!-- code to render the card once everything has loaded, once it can. -->
+          {% if project.project_image %}
+          <!-- If a Image is supplied in the SQL, do the following for different image properties.  -->
+          {% if not project.project_image.startswith("images") %}
+          <!-- if the image in the database doesn't start with the folder name  "image/", do -->
+          <img
+            src="{{ project.project_image }}"
+            alt="{{ project.name }}"
+            class="card-img-top"
+          />
+          <!-- inject the image and then inject a value from the variable for the alt value to make the code work -->
+          {% else %}
+          <!-- If everything works as planned do -->
+          <img
+            src="{{ url_for('static', filename=project.project_image) }}"
+            alt="{{ project.name }}"
+            class="card-img-top"
+          />
+          <!-- Then use a different command from Flask to extract and insert with the alt command. -->
+          {% endif %}
+          <!-- end image checking/looping-->
+          {% elif project.demonstration %}
+          <!-- if its a video or the such from another URL -->
+          {% if not project.demonstration.startswith("images") %}
+          <!-- then test URL-->
+          <img
+            src="{{ project.demonstration }}"
+            alt="{{ project.name }}"
+            class="card-img-top"
+          />
+          <!-- link, if the "project.demonstration" is present and a value exists use that. -->
+          {% else %}
+          <!-- if that doesnt exist and there are issues, to do to this. -->
+          <img
+            src="{{ url_for('static', filename=project.demonstration) }}"
+            alt="{{ project.name }}"
+            class="card-img-top"
+          />
+          <!-- run code, in the event theres a issue, find a photo with this flask command -->
+          {% endif %}
+          <!-- close the loop -->
+          {% endif %}
+          <!-- end the checking -->
+          <div class="card-body">
+            <!-- code to create the styling of the page from BootStrap. this is the container for everything.  -->
+            <h5 class="card-title">{{ project.name | safe }}</h5>
+            <!-- inject the name into the title with the class -->
+            <p class="card-text">{{ project.description | safe }}</p>
+            <!-- and the description as well -->
+            <a
+              href="{{ project.github_link }}"
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Check Out Repository
+            </a>
+            <!-- Then add a button which takes you to the project -->
+            {% if project.demo_link %}
+            <!-- check if the project has a demo link-->
+            <a
+              href="{{ project.demo_link }}"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live Demo
+            </a>
+            <!-- if so, give back with this URL that links to the project. -->
+            {% endif %}
+            <!-- close check and send the code -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- New row for technical details and key learnings -->
+      <div class="col-md-12">
+        <!-- set col size to full -->
+        <div class="card p-4 project-placeholder fade_in" style="display: none">
+          <!-- set a card to show while loading -->
+          <div>
+            <!-- container to for all text -->
+            <h4 class="animated-bg animated-bg-text"></h4>
+            <!-- set animation -->
+            <ul>
+              <!-- set list -->
+              <li class="animated-bg animated-bg-text"></li>
+              <!-- set animation and effect-->
+              <li class="animated-bg animated-bg-text"></li>
+              <!-- set animation and effect-->
+              <li class="animated-bg animated-bg-text"></li>
+              <!-- set animation and effect-->
+              <li class="animated-bg animated-bg-text"></li>
+              <!-- set animation and effect-->
+              <li class="animated-bg animated-bg-text"></li>
+              <!-- set animation and effect-->
+            </ul>
+            <!-- End to the bullet points -->
+          </div>
+          <!-- end to the inner containter -->
+          <br />
+          <!-- spacing code -->
+          <h4 class="animated-bg animated-bg-text"></h4>
+          <!-- preform animation for loading-->
+          <p class="animated-bg animated-bg-text"></p>
+          <!-- preform animation for loading-->
+          <br />
+          <!-- spacing code -->
+          <br />
+          <!-- spacing code -->
+          <h4 class="animated-bg animated-bg-text"></h4>
+          <!-- preform animation for loading-->
+          <p class="animated-bg animated-bg-text"></p>
+          <!-- preform animation for loading-->
+        </div>
+
+        <div class="card p-4 project-listing fade_in" style="display: none">
+          <!-- Style while the card is ready, and load effects can take place with animation prop -->
+          {% if project.technical_details %}
+          <!-- check if the project has technical details -->
+          <div>
+            <!-- add container to the code -->
+            <h4>Technical Details:</h4>
+            <!-- add the header -->
+            <ul>
+              <!-- bullet points for code -->
+              {% for key, value in project.technical_details.items() %}
+              <!-- if the code is what the website is after and extract it do, loop-->
+              <li>
+                <!-- new bullet point to render from code from SQL -->
+                {{ key }}:
+                <!-- Code to get the code name -->
+                {% if value is string %}
+                <!-- code for string extraction-->
+                {{ value | safe }}
+                <!-- code for string extraction with effect -->
+                {% elif value is iterable %}
+                <!-- if the value to look for can be added, as it is valid with HTML then, preform loop and get -->
+                {{ ', '.join(value) | safe }}
+                <!-- put it onto page -->
+                {% else %}
+                <!-- if anything happens, to preform the code below  -->
+                {{ value|string | safe }}
+                <!-- extract the text, with effect. Then render-->
+                {% endif %}
+                <!-- close if statement -->
+              </li>
+              <!-- close the line, and loop again -->
+              {% endfor %}
+              <!-- end of the if/else for SQL query for project details.  -->
+            </ul>
+            <!-- bullet point effect end -->
+          </div>
+          <!-- then end the container -->
+          {% endif %}
+          <!-- end checker/loop -->
+          <h4>Key Learnings:</h4>
+          <!-- inject code about what it was learned -->
+          <p>{{ project.key_learnings | safe }}</p>
+          <!-- from what the details say -->
+          {% if project.status %}
+          <!-- check and see if there is a status -->
+          <h4>Status:</h4>
+          <!-- if so then show what is the status for it-->
+          <p>{{ project.status | safe }}</p>
+          <!-- use save filter -->
+          {% endif %}
+          <!-- close the if checker -->
+        </div>
+        <!-- close out everything -->
+      </div>
+      <!--  code that sets the width of the page -->
+    </div>
+    <!-- close row -->
+  </div>
+  <!-- close container to all html -->
+</section>
+<!-- closes entire section -->
+{% endblock %} {% block scripts %}
+<!-- Script tag, for all Javascript -->
+<script src="{{ url_for('static', filename='javascript/projects/project_detail.js') }}"></script>
+<!-- link to the javascript file, from local, and flask prop for the code -->
+{% endblock %}

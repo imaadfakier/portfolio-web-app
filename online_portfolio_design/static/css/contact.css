@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  Contact Section Styles (General)
+   2.  Input Styles (input, textarea)
+   3.  Bubbles Styles
+       3.1 Individual Bubble Containers
+       3.2 Bubbles
+   4.  Responsiveness
+   ========================================================================== */
+
+/* ==========================================================================
+    1. Contact Section Styles (General)
+   ========================================================================== */
+
+#contact {
+  /* Styles the main contact section, centering its content both horizontally and vertically. */
+  display: flex;
+  align-items: center; /* Vertically centers the content. */
+  justify-content: center; /* Horizontally centers the content. */
+  min-height: 100vh; /* Changed to min-height: Ensures the section takes up at least the full viewport height. */
+  margin: 0;
+  flex-direction: column; /* Stacks the content vertically. */
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.5rem;
+}
+
+/* ==========================================================================
+    2. Input Styles (input, textarea)
+   ========================================================================== */
+
+input,
+textarea {
+  /* Styles all input and textarea elements to use a clear and legible font. */
+  font-family: Arial, sans-serif; /* Choose a clear, case-sensitive font:  Ensures readability across different browsers and devices. */
+}
+
+/* ==========================================================================
+    3. Bubbles Styles
+   ========================================================================== */
+
+/* -------------------- Bubbles Styles -------------------- */
+.bubbles {
+  /* Styles the container for the bubble animation, positioning it behind the contact form. */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure bubbles are behind the contact form: Positions the bubbles behind other content. */
+  overflow: hidden; /* Hides any bubbles that overflow the container. */
+  pointer-events: none; /* Allows clicks to pass through the bubbles to elements underneath. */
+}
+
+/* -------------------- Individual Bubble Containers -------------------- */
+.circle_container {
+  /* Styles the individual bubble containers, positioning them at the top and animating their movement. */
+  position: absolute;
+  top: 0; /* Start at the top:  Sets the initial vertical position of the container. */
+  left: 0;
+  transform-origin: top right; /* Defines the point around which the container rotates. */
+  animation: rotateBubbles 15s linear infinite; /* Animates the rotation of the container. */
+}
+
+/* -------------------- Bubbles -------------------- */
+.circle {
+  /* Styles the individual bubbles, creating a circular shape with a gradient and animation. */
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    #2980b9,
+    #6dd5fa
+  ); /* Applies a gradient background. */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow. */
+  opacity: 0.8; /* Sets the transparency of the bubbles. */
+  animation-name: moveDown; /* Refers to the name of the animation. */
+  animation-duration: 20s; /* Sets the duration of the animation. */
+  animation-iteration-count: infinite; /* Sets the animation to repeat infinitely. */
+  animation-timing-function: linear; /* Sets the animation to have a constant speed. */
+}
+
+/* -------------------- Movement from top to bottom -------------------- */
+@keyframes moveDown {
+  /* Animates the movement of the bubbles from the top to the bottom. */
+  0% {
+    transform: translateY(-10vh); /* Start just above the viewport. */
+    opacity: 0; /* Start invisible. */
+  }
+
+  10% {
+    opacity: 1; /* Fade in slightly. */
+  }
+
+  90% {
+    opacity: 0.5; /* Reduce visibility as it nears the end. */
+  }
+
+  100% {
+    transform: translateY(
+      110vh
+    ); /* Move far beyond the bottom of the viewport. */
+    opacity: 0; /* Fade out completely. */
+  }
+}
+
+/* ==========================================================================
+    4. Responsiveness
+   ========================================================================== */
+
+@media (max-width: 650px) /*, (max-height: 768px) */ {
+  /* Adjusts the padding on the contact section for smaller screens to prevent content from touching the edges. */
+  #contact {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}

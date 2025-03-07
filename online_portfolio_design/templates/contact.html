@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements -->
+
+{% block title %} Contact {% endblock %}
+<!-- Defines the title for this page, which will be inserted into the base template -->
+
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/contact.css') }}"
+/>
+<!-- Links to the 'contact.css' stylesheet in the 'static' directory, using Flask's url_for function -->
+{% endblock %} {% block content %}
+<!-- Defines the main content of the page -->
+<!-- ==========================================================================
+      Contact Section
+     ========================================================================== -->
+<!-- The main section of the page, containing the contact form -->
+<section id="contact" class="py-5">
+  <!-- Section with ID 'contact' and padding on top and bottom (py-5) -->
+  <div class="container">
+    <!-- Container class provides responsive width -->
+    <div class="row">
+      <!-- Row class for creating a horizontal grouping of columns -->
+      <div class="col-sm-12 col-md-12 col-lg-8 offset-lg-2">
+        <!-- Column taking up full width on small (sm) and medium (md) screens, 8 columns on large (lg) screens, and offset by 2 columns on large screens to center it -->
+
+        <!-- ==========================================================================
+              Section Heading
+             ========================================================================== -->
+        <!-- Heading for the contact section -->
+        <h2 class="text-center mb-4 hidden_slide_in slideInFromLeft">
+          Contact
+        </h2>
+        <!-- Heading with classes for centering text, adding margin at the bottom (mb-4), applying a hidden slide-in animation (hidden_slide_in), and sliding in from the left (slideInFromLeft) -->
+
+        <!-- ==========================================================================
+              Contact Form
+             ========================================================================== -->
+        <!-- The contact form itself -->
+        <div class="contact_form card p-4 fade_in">
+          <!-- Div with classes for styling the form as a card (card), adding padding (p-4), and applying a fade-in animation (fade_in) -->
+          <form
+            method="POST"
+            action="{{ url_for('contact.contact') }}"
+            id="contact-form"
+          >
+            <!-- Form element with POST method, submitting to the 'contact.contact' route, and having the ID 'contact-form' -->
+            {{ form.csrf_token }}
+            <!-- Includes a Cross-Site Request Forgery (CSRF) token for security -->
+            <div class="form-group">
+              <!-- A form group for the name field -->
+              {{ form.name.label(class="form-control-label") }}
+              <!-- Renders the label for the name field with the class 'form-control-label' -->
+              {{ form.name(class="form-control", id="name") }}
+              <!-- Renders the name field with the class 'form-control' and ID 'name' -->
+              <div class="invalid-feedback">Please enter a valid name.</div>
+              <!-- An 'invalid-feedback' div for displaying an error message when the name field is invalid -->
+            </div>
+            <div class="form-group">
+              <!-- A form group for the email field -->
+              {{ form.email.label(class="form-control-label") }}
+              <!-- Renders the label for the email field with the class 'form-control-label' -->
+              {{ form.email(class="form-control", id="email",
+              autocomplete="off", autocapitalize="none", spellcheck="false") }}
+              <!-- Renders the email field with the class 'form-control', ID 'email', disables autocomplete and autocapitalization, and disables spellcheck -->
+              <div class="invalid-feedback">Please enter a valid email.</div>
+              <!-- An 'invalid-feedback' div for displaying an error message when the email field is invalid -->
+            </div>
+            <div class="form-group">
+              <!-- A form group for the message field -->
+              {{ form.message.label(class="form-control-label") }}
+              <!-- Renders the label for the message field with the class 'form-control-label' -->
+              {{ form.message(class="form-control", id="message", rows="5") }}
+              <!-- Renders the message field with the class 'form-control', ID 'message', and sets the number of rows to 5 -->
+              <div class="invalid-feedback">
+                Message must be at least 10 characters.
+              </div>
+              <!-- An 'invalid-feedback' div for displaying an error message when the message field is invalid -->
+            </div>
+            <div class="form-group">
+              <!-- A form group for the reCAPTCHA token -->
+              <!-- Add this hidden input inside your form -->
+              <input
+                type="hidden"
+                name="recaptcha_response"
+                id="recaptchaToken"
+              />
+              <!-- A hidden input field for storing the reCAPTCHA token, with the name 'recaptcha_response' and ID 'recaptchaToken' -->
+            </div>
+            <div class="form-group">
+              <!-- A form group for the submit button -->
+              <button
+                type="submit"
+                class="btn btn-primary hidden_slide_in slideInFromRight"
+              >
+                Submit
+              </button>
+              <!-- A submit button with classes for styling it as a primary button (btn-primary), applying a hidden slide-in animation (hidden_slide_in), and sliding in from the right (slideInFromRight) -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<!-- Defines the scripts specific to this page -->
+<script src="{{ url_for('static', filename='javascript/contact.js') }}"></script>
+<!-- Links to the 'contact.js' script in the 'static' directory, using Flask's url_for function -->
+{% endblock %}

@@ -1,0 +1,201 @@
+<!-- ==========================================================================
+     career.html
+     ========================================================================== -->
+<!-- This template renders the Career page, displaying work experience, education, and certification information in a timeline format. -->
+
+{% extends "base.html" %}
+<!-- Extends the base template (base.html) to inherit its structure and elements. -->
+{% block title %} Career {% endblock %}
+<!-- Defines the title for this page, which will be inserted into the base template. -->
+{% block stylesheets %}
+<!-- Defines the stylesheets specific to this page. -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/career.css') }}"
+/>
+<!-- Links to the 'career.css' stylesheet in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %} {% block content %}
+<!-- Defines the main content of the page. -->
+<!-- ==========================================================================
+            Career Section
+     ========================================================================== -->
+<!-- The main section of the page, containing the work experience, education, and certifications sections. -->
+<section id="career" class="py-5">
+  <!-- Section with ID 'career' and padding on top and bottom (py-5). -->
+  <!-- ==========================================================================
+              Experience Section
+       ========================================================================== -->
+  <!-- Section displaying the user's work experience in a timeline format. -->
+  <section
+    id="experience"
+    class="py-5 animatable bounceInRight"
+    style="opacity: 0"
+  >
+    <!-- Section with ID 'experience', padding on top and bottom (py-5), applying a bounce-in animation from the right (bounceInRight), and initially setting the opacity to 0 for animation purposes. -->
+    <div class="container">
+      <!-- Container class provides responsive width. -->
+      <h2 class="text-center">Experience</h2>
+      <!-- Heading with classes for centering text. -->
+      <ul class="timeline" style="list-style: none">
+        <!-- Unordered list with class 'timeline' (custom styling) and removing default list styling. -->
+        {% for exp in experiences %}
+        <!-- Loops through each experience entry in the 'experiences' list passed from the Flask route. -->
+        <li>
+          <!-- List item representing a single work experience entry. -->
+          <div class="timeline-badge">
+            <!-- Badge/marker for the timeline entry. -->
+            <img
+              src="{{ url_for('static', filename='images/' + exp.image) }}"
+              alt="Company Logo"
+              style="width: 10%; border-radius: 50%; margin-bottom: 15px"
+            />
+            <!-- Displays the company logo, using Flask's url_for function to generate the URL, setting the width to 10%, rounding the corners, and adding margin at the bottom. -->
+          </div>
+          <div class="timeline-panel">
+            <!-- Panel containing the content for the timeline entry. -->
+            <div class="timeline-heading">
+              <!-- Heading section within the timeline panel. -->
+              <h4 class="timeline-title">{{ exp.title | safe }}</h4>
+              <!-- Displays the job title, using the safe filter to prevent HTML injection. -->
+              <h5 class="timeline-title">{{ exp.company | safe }}</h5>
+              <!-- Displays the company name, using the safe filter. -->
+              <p>
+                <!-- Paragraph containing the work duration. -->
+                <small class="text-muted">
+                  <!-- Small text with muted color. -->
+                  <i class="fas fa-calendar-alt"></i>
+                  <!-- Font Awesome calendar icon. -->
+                  {{ exp.duration | safe }}
+                  <!-- Displays the work duration, using the safe filter. -->
+                </small>
+              </p>
+            </div>
+            <div class="timeline-body">
+              <!-- Body section within the timeline panel, displaying the job responsibilities and skills. -->
+              {% for point in exp.points %}
+              <!-- Loops through each point in the 'points' list (responsibilities/achievements). -->
+              <p>{{ point | safe }}</p>
+              <!-- Displays each point, using the safe filter. -->
+              {% endfor %}
+              <p class="skills-paragraph">
+                <!-- Paragraph containing the list of skills. -->
+                Skills: {{ exp.skills | join(", ") | safe }}
+                <!-- Displays the skills, joining them with a comma and space, and using the safe filter. -->
+              </p>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+        <!-- End of the loop through the work experience entries. -->
+      </ul>
+    </div>
+  </section>
+  <!-- ==========================================================================
+              Education Section
+       ========================================================================== -->
+  <!-- Section displaying the user's education history in a timeline format. -->
+  <section id="education" class="py-5 animatable bounceInLeft">
+    <!-- Section with ID 'education', padding on top and bottom (py-5), and applying a bounce-in animation from the left (bounceInLeft). -->
+    <div class="container">
+      <!-- Container class provides responsive width. -->
+      <h2 class="text-center">Education</h2>
+      <!-- Heading with classes for centering text. -->
+      <ul class="timeline" style="list-style: none">
+        <!-- Unordered list with class 'timeline' (custom styling) and removing default list styling. -->
+        {% for edu in educations %}
+        <!-- Loops through each education entry in the 'educations' list passed from the Flask route. -->
+        <li>
+          <!-- List item representing a single education entry. -->
+          <div class="timeline-badge">
+            <!-- Badge/marker for the timeline entry. -->
+            <img
+              src="{{ url_for('static', filename='images/' + edu.image) }}"
+              alt="Educational Institutional Icon"
+              style="width: 10%; border-radius: 50%; margin-bottom: 15px"
+            />
+            <!-- Displays the institutional logo, using Flask's url_for function to generate the URL, setting the width to 10%, rounding the corners, and adding margin at the bottom. -->
+          </div>
+          <div class="timeline-panel">
+            <!-- Panel containing the content for the timeline entry. -->
+            <div class="timeline-heading">
+              <!-- Heading section within the timeline panel. -->
+              <h4 class="timeline-title">{{ edu.degree | safe }}</h4>
+              <!-- Displays the degree name, using the safe filter to prevent HTML injection. -->
+              <p>
+                <!-- Paragraph containing the graduation year. -->
+                <small class="text-muted">
+                  <!-- Small text with muted color. -->
+                  <i class="fas fa-calendar-alt"></i>
+                  <!-- Font Awesome calendar icon. -->
+                  {{ edu.year | safe }}
+                  <!-- Displays the graduation year, using the safe filter. -->
+                </small>
+              </p>
+            </div>
+            <div class="timeline-body">
+              <!-- Body section within the timeline panel, displaying the additional information. -->
+              {% if edu.additional_information %}
+              <!-- Conditional: Checks if there is any additional information to display. -->
+              {% for info_point in edu.additional_information %}
+              <!-- Loops through each point in the 'additional_information' list. -->
+              <p>{{ info_point | safe }}</p>
+              <!-- Displays each point, using the safe filter. -->
+              {% endfor %} {% endif %}
+              <!-- End of the conditional block. -->
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+        <!-- End of the loop through the education entries. -->
+      </ul>
+    </div>
+  </section>
+  <!-- ==========================================================================
+              Certifications Section
+       ========================================================================== -->
+  <!-- Section displaying the user's certifications in a grid format. -->
+  <section id="certifications" class="py-5 bg-light animatable fadeIn">
+    <!-- Section with ID 'certifications', padding on top and bottom (py-5), setting a light background color (bg-light), and applying a fade-in animation (fadeIn). -->
+    <div class="container">
+      <!-- Container class provides responsive width. -->
+      <h2 class="text-center">Certifications</h2>
+      <!-- Heading with classes for centering text. -->
+      <div class="row">
+        <!-- Row class for creating a horizontal grouping of columns. -->
+        {% for cert in certificates %}
+        <!-- Loops through each certificate entry in the 'certificates' list passed from the Flask route. -->
+        <div class="col-md-6">
+          <!-- Column taking up half the width on medium (md) screens and larger. -->
+          <div class="card mb-3">
+            <!-- Card with classes for styling it as a card and adding margin at the bottom (mb-3). -->
+            <div class="card-body">
+              <!-- Body section within the card. -->
+              <img
+                src="{{ url_for('static', filename='images/udemy-logo.png') }}"
+                alt="Udemy Icon"
+                style="width: 15%; padding-bottom: 20px"
+                title="Udemy"
+              />
+              <!-- Displays the Udemy logo, using Flask's url_for function to generate the URL, setting the width to 15%, adding padding at the bottom, and setting the title. -->
+              <h5 class="card-title">{{ cert.title | safe }}</h5>
+              <!-- Displays the certificate title, using the safe filter to prevent HTML injection. -->
+              <p class="card-text">Completed: {{ cert.date | safe }}</p>
+              <!-- Displays the completion date, using the safe filter. -->
+              <a href="{{ cert.link }}" target="_blank" class="btn btn-primary"
+                >View Certificate</a
+              >
+              <!-- Link to view the certificate, opening in a new tab (target="_blank"), and styled as a primary button. -->
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- End of the loop through the certificate entries. -->
+      </div>
+    </div>
+  </section>
+</section>
+{% endblock %} {% block scripts %}
+<!-- Defines the scripts specific to this page. -->
+<script src="{{ url_for('static', filename='javascript/career.js') }}"></script>
+<!-- Links to the 'career.js' script in the 'static' directory, using Flask's url_for function to generate the URL. -->
+{% endblock %}

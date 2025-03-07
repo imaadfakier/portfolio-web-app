@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  General Styles
+       1.1. Body
+       1.2. Text Styling
+       1.3. Slide-In Animations
+       1.4. Fade-in Animation
+       1.5. Button Styling
+       1.6. CV Generator Link
+       1.7. Footer Styling
+   2.  Loading Animation
+   ========================================================================== */
+
+/* ==========================================================================
+   1. General Styles
+   ========================================================================== */
+
+/* 1.1 Body */
+body {
+  /* Styles the overall appearance of the body. */
+  background: linear-gradient(
+    45deg,
+    #2980b9,
+    #6dd5fa,
+    #ffffff
+  ); /* Initial Gradient: Defines a gradient background using linear-gradient. */
+  background-size: 300% 300%; /* Larger background size for animation: Sets a larger background size for the gradient animation. */
+  animation: gradientAnimation 15s ease infinite; /* Animate the gradient: Applies the gradientAnimation animation with a duration of 15 seconds, ease timing, and infinite loop. */
+  margin: 0; /* Remove default body margins:  Removes the default margin from the body element. */
+  overflow-x: hidden; /* Prevents horizontal scrolling. */
+  font-family: "Roboto", sans-serif; /* Default to Roboto: Sets the default font to Roboto. */
+  color: black;
+}
+
+body.loading {
+  /* Styles the body during the loading state, preventing scrolling. */
+  overflow: hidden;
+}
+
+/* 1.2 Text Styling */
+
+/* 1.3 Slide-In Animations */
+.slide_in_from_top {
+  /* Styles for elements that slide in from the top, initially hidden. */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(
+    -50px
+  ); /* Start above: Starts the element 50px above its normal position. */
+  transition: transform 2s ease-out, opacity 2s ease-out; /* Smooth fade-in and slide-in transition. */
+}
+
+.slide_in_from_top.visible {
+  /* Styles for when the element is visible, animating it to slide in from the top. */
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0); /* Slide into position. */
+}
+
+.hidden_slide_in {
+  /* Styles for elements that slide in from the side, initially hidden. */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-100%); /* Start from the left. */
+  transition: opacity 0.7s ease-in-out, transform 3s ease-in-out; /* Smooth fade-in and slide-in transition. */
+}
+
+.hidden_slide_in.slideInFromLeft {
+  /* Styles for elements that slide in from the left. */
+  transform: translateX(-100%); /* Start from the left. */
+}
+
+.hidden_slide_in.slideInFromRight {
+  /* Styles for elements that slide in from the right. */
+  transform: translateX(100%); /* Start from the right. */
+}
+
+/* Make sure the transitions are defined in the initial hidden state, and
+this visible class is what triggers the animation.  */
+.hidden_slide_in.visible {
+  /* Styles for when the element is visible, animating it to slide in from the side. */
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0); /* Slide into position. */
+}
+
+/* 1.4 Fade-in Animation */
+@keyframes fadeInText {
+  /* Defines the fade-in animation for text elements. */
+  0% {
+    opacity: 0;
+    filter: blur(5px); /* Initial blur */
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0); /* Remove blur */
+  }
+}
+
+.fade_in {
+  /* Styles for elements that fade in, initially hidden. */
+  visibility: hidden;
+  opacity: 0;
+}
+
+.fade_in.visible {
+  /* Styles for when the element is visible, animating it to fade in. */
+  visibility: visible;
+  animation: fadeInText 1s ease-out forwards; /* Apply fadeInText animation, retain properties after animation */
+}
+
+/* 1.5 Button Styling */
+.btn {
+  /* Styles for buttons, creating a 3D effect. */
+  position: relative; /* Required for creating pseudo-elements: Used to make the before elements work */
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: normal;
+  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth Transitions: added animations */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial Shadow: Added the initial shadow for the card */
+  font-family: "Bebas Neue", sans-serif; /* Apply Bebas Neue to buttons as well, if desired */
+  transform: translateY(0); /* Ensure it starts at the original position */
+  flex: 0 1 auto; /* Flexibility for button layouts */
+}
+
+.btn:hover {
+  /* Styles for buttons on hover. */
+  opacity: 0.9;
+  transform: translateY(2px); /* Press in on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Reduce shadow on hover */
+}
+
+.btn:active {
+  /* Styles for buttons when active (clicked). */
+  transform: translateY(4px); /* Further press in on click */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Further reduce shadow on click */
+}
+
+/* Pseudo-element for the 3D effect */
+.btn::before {
+  /* Creates a pseudo-element to add depth to the button. */
+  content: "";
+  position: absolute;
+  top: 2px; /* Offset from the top */
+  left: 2px; /* Offset from the left */
+  right: 2px;
+  bottom: 2px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Inset shadow for depth */
+  pointer-events: none; /* Make sure it doesn't interfere with clicks */
+}
+
+.btn-primary {
+  /* Styles primary buttons. */
+  background-color: #007bff;
+}
+
+.btn-secondary {
+  /* Styles secondary buttons. */
+  background-color: #6c757d;
+}
+
+.button-container {
+  /* Styles the container for buttons, ensuring proper layout and alignment. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 1.6 CV Generator Link */
+.cv-generator-link {
+  /* Styles the CV generator link, positioning it fixed on the page. */
+  position: fixed;
+  /* right: 20px; */ /* Keep it in the same position */
+  right: -100px; /* Start off-screen */
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out,
+    box-shadow 0.1s ease;
+  opacity: 0;
+  visibility: hidden;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 25px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+  width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: center;
+  z-index: 10;
+  font-family: "Bebas Neue", sans-serif;
+  cursor: pointer;
+}
+
+/* When visible, slide in smoothly */
+.cv-generator-link.visible {
+  /* Styles for when the CV generator link is visible, animating it to slide in. */
+  transform: translateX(-120px) translateY(-50%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.cv-generator-link:hover {
+  /* Styles for the CV generator link on hover. */
+  width: 180px; /* Expands to show text */
+  transform: translateX(-120px) translateY(-50%) translateY(2px); /* Press in */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Reduce shadow */
+}
+
+/* Active State (Further Press-In) */
+.cv-generator-link:active {
+  /* Styles for the CV generator link when active (clicked). */
+  transform: translateX(-120px) translateY(-50%) translateY(4px); /* Press further */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Reduce shadow more */
+}
+
+.cv-btn {
+  /* Styles the CV button text. */
+  font-size: 20px;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cv-btn:hover {
+  /* Styles the CV button text on hover. */
+  text-decoration: none;
+}
+
+.cv-btn i {
+  /* Styles the CV button icon. */
+  position: absolute; /* Keep icon in place */
+  left: 50%;
+  transform: translateX(-50%) translateY(25%);
+  transition: opacity 0.1s ease-in-out;
+}
+
+.cv-generator-link:hover .cv-btn i {
+  /* Styles the CV button icon on hover of the generator link. */
+  opacity: 0; /* Fade out when hovered */
+}
+
+.cv-generator-link:not(:hover) .cv-btn i {
+  /* Styles the CV button icon when the generator link is not hovered. */
+  opacity: 1; /* Fade back in when not hovered */
+}
+
+.cv-btn span {
+  /* Styles the CV button text. */
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.cv-generator-link:hover .cv-btn span {
+  /* Styles the CV button text on hover of the generator link. */
+  opacity: 1; /* Fade in text */
+}
+
+.cv-generator-link:not(:hover) .cv-btn span {
+  /* Styles the CV button text when the generator link is not hovered. */
+  opacity: 0; /* Fade out text when not hovered */
+}
+
+.cv-text {
+  /* Styles the CV text within the button. */
+  margin-left: 10px;
+  font-size: 16px;
+  color: #007bff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cv-generator-link:hover .cv-text {
+  /* Styles the CV text when the generator link is hovered. */
+  opacity: 1; /* Text fades in when hovered */
+}
+
+/* 1.7 Footer Styling */
+.footer {
+  /* Styles the footer, positioning it at the bottom of the page. */
+  position: relative; /* fixed; */ /* Or fixed, depending on your design: Can be positioned relative or fixed, depending on the desired layout. */
+  /* bottom: -100px; */ /* Initially hide the footer below the viewport: Hides the footer initially, so it's not visible until it's animated into view. */
+  bottom: 0;
+  width: 100%;
+  background-color: #333; /* Choose your footer background color: Sets the background color of the footer. */
+  color: white; /* Choose your footer text color: Sets the text color of the footer. */
+  padding: 20px; /* Add padding as needed: Adds padding around the footer content. */
+  text-align: center;
+}
+
+/* Adjust styles for the footer content as needed */
+.footer p {
+  /* Styles the paragraph text within the footer. */
+  margin: 0;
+}
+
+/* ==========================================================================
+   2. Loading Animation
+   ========================================================================== */
+
+@keyframes gradientAnimation {
+  /* Defines the gradient animation, shifting the background position. */
+  0% {
+    background-position: 0% 50%; /* Start at the left. */
+  }
+  50% {
+    background-position: 100% 50%; /* Shift to the right. */
+  }
+  100% {
+    background-position: 0% 50%; /* Return to the left. */
+  }
+}
+
+.loading-container {
+  /* Styles the loading container, using a gradient background and centering its content. */
+  background: linear-gradient(
+    90deg,
+    #0047ab,
+    #008cff,
+    #00a1e4,
+    #00cfff,
+    #87ceeb
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 3s infinite linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Changed to min-height: Ensures the loading container takes up at least the full viewport height. */
+  margin: 0;
+  flex-direction: column;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #fff;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.loading-text {
+  /* Styles the loading text. */
+  margin: 0;
+}
+
+.fade-out {
+  /* Styles for fading out an element. */
+  opacity: 0;
+  pointer-events: none; /* Prevents interaction while fading: Make's the user unable to click or interact with faded out section */
+}
+
+/* When the buttons wrap, make the last button (Contact) expand */
+@media (max-width: 650px) {
+  /* Adjust breakpoint as needed: Responsive breakpoint to adjust for different screen sizes. */
+  .btn {
+    flex: 1 1 auto;
+  }
+}

@@ -1,0 +1,207 @@
+{% extends "base.html" %} {% block title %} Projects {% endblock %} {% block
+stylesheets %}
+<!-- Linking the specific CSS file for styling the projects page -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/projects.css') }}"
+/>
+{% endblock %} {% block show_loader %}
+<!-- Conditionally display the loader animation if the project route is valid -->
+{% if is_valid_project_route(request.path) %}
+<div class="bubbles"></div>
+<section class="loading-container">
+  <div class="loading-text">0%</div>
+</section>
+{% endif %} {% endblock %} {% block content %}
+<!-- Projects Section -->
+<section id="projects">
+  <div class="container">
+    <div class="justify-content-center">
+      <!-- Overview Section -->
+      <section class="overview">
+        <div class="text-center">
+          <button id="overviewButton" class="btn btn-secondary fade_in">
+            Journey
+          </button>
+          <div
+            id="truncatedOverviewContent"
+            class="p-3 mt-3 card fade_out hidden"
+          >
+            <div class="card-body">
+              <p><i>{{ truncated_overview | safe }}</i></p>
+            </div>
+          </div>
+          <div id="overviewContent" class="p-3 mt-3 card fade_out hidden">
+            <div class="card-body">
+              <p>{{ overview.get('overview_text', '') | safe }}</p>
+              <ul style="list-style-type: none; padding: 0">
+                {% for phase in overview.phases %}
+                <li class="mt-4">
+                  <h4>{{ phase.phase_title | safe }}</h4>
+                  <ul class="overview-projects">
+                    {% for project in phase.projects %}
+                    <li><p>{{ project | safe }}</p></li>
+                    {% endfor %}
+                  </ul>
+                  <p class="overview-experience_description">
+                    {{ phase.experience_description | safe }}
+                  </p>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project Listings Section -->
+      <section class="project-listings py-5">
+        <div class="container">
+          <h2 class="text-center hidden_slide_in slideInFromLeft">Portfolio</h2>
+          <div id="isotope-container">
+            <!-- Placeholder Projects for Loading Effect -->
+            {% for i in range(projects_per_page) %}
+            <div class="isotope-item project-placeholder fade_in">
+              <div class="card mb-4">
+                <img
+                  class="card-img-top animated-bg"
+                  src="{{ url_for('static', filename='images/transparent-white-image.png') }}"
+                  alt="Placeholder"
+                />
+                <div class="card-body">
+                  <h5 class="card-title animated-bg animated-bg-text"></h5>
+                  <p class="card-text animated-bg animated-bg-text"></p>
+                  <a href="#" class="btn btn-primary disabled">View Project</a>
+                  <a href="#" class="btn btn-secondary disabled">Live Demo</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            <!-- Display Actual Projects -->
+            {% for project in projects %}
+            <div
+              class="isotope-item project-listing fade_in"
+              style="display: none"
+            >
+              <div class="card mb-4">
+                {% if project.project_image %} {% if not
+                project.project_image.startswith("images") %}
+                <img
+                  src="{{ project.project_image }}"
+                  alt="{{ project.name }}"
+                  class="card-img-top"
+                />
+                {% else %}
+                <img
+                  src="{{ url_for('static', filename=project.project_image) }}"
+                  alt="{{ project.name }}"
+                  class="card-img-top"
+                />
+                {% endif %} {% elif project.demonstration %} {% if not
+                project.demonstration.startswith("images") %}
+                <img
+                  src="{{ project.demonstration }}"
+                  alt="{{ project.name }}"
+                  class="card-img-top"
+                />
+                {% else %}
+                <img
+                  src="{{ url_for('static', filename=project.demonstration) }}"
+                  alt="{{ project.name }}"
+                  class="card-img-top"
+                />
+                {% endif %} {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ project.name | safe }}</h5>
+                  <p class="card-text">{{ project.description | safe }}</p>
+                  <a
+                    href="{{ url_for('projects.project_detail', project_id=project.id) }}"
+                    class="btn btn-primary"
+                    >View Project</a
+                  >
+                  {% if project.demo_link %}
+                  <a
+                    href="{{ project.demo_link }}"
+                    class="btn btn-secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Live Demo</a
+                  >
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Pagination Section -->
+      <div class="pagination-container hidden_slide_in slideInFromRight">
+        <nav aria-label="Projects Pagination">
+          <ul class="pagination">
+            <!-- Previous Button -->
+            {% if projects_paginator.has_prev %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('projects.projects', page_num=projects_paginator.prev_num) }}"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&laquo;</span>
+            </li>
+            {% endif %}
+
+            <!-- Page Numbers -->
+            {% for page_num in projects_paginator.iter_pages(left_edge=1,
+            right_edge=1, left_current=1, right_current=2) %} {% if page_num %}
+            {% if projects_paginator.page == page_num %}
+            <li class="page-item active">
+              <span class="page-link">{{ page_num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('projects.projects', page_num=page_num) }}"
+                >{{ page_num }}</a
+              >
+            </li>
+            {% endif %} {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+            {% endif %} {% endfor %}
+
+            <!-- Next Button -->
+            {% if projects_paginator.has_next %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('projects.projects', page_num=projects_paginator.next_num) }}"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&raquo;</span>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='javascript/projects/isotope.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/projects/projects.js') }}"></script>
+{% endblock %}

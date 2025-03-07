@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Table of Contents:
+   --------------------------------------------------------------------------
+   1.  General Styles
+       1.1. Hero Section Styles
+       1.2. Container Styles
+       1.3. Image Styles
+   2.  Bubbles Styles
+       2.1. Individual Bubble Containers
+       2.2. Bubbles
+   3.  Home Loading Animation
+   4.  Responsiveness
+   ========================================================================== */
+
+/* ==========================================================================
+    1. General Styles
+   ========================================================================== */
+
+/* 1.1 Hero Section Styles */
+.hero {
+  /* Hero section: The main introductory section of the page. */
+  display: flex; /* Use Flexbox for vertical centering */
+  align-items: center; /* Vertically center the content */
+  justify-content: center; /* Horizontally center the content */
+  width: 100vw; /* Take up the full viewport width, ensuring it stretches across the entire screen. */
+  position: relative; /* For z-index control, allowing layering of elements within the hero section */
+  z-index: 1; /* Ensure it's above other potential background elements */
+  font-family: sans-serif;
+  color: black; /* Default Text Color */
+  text-align: center;
+  min-height: 100vh; /* Added min-height - This ensures hero section will always be as big as the screen even with minimal content. */
+  padding: 15vh 0; /* Added padding to top and bottom, creating visual space around the hero content.  Using viewport height units for responsiveness. */
+}
+
+.hero h1 {
+  /* Main heading of the hero section.  Uses a gradient for visual appeal. */
+  font-size: 3em;
+  margin-bottom: 10px;
+  font-family: "Bebas Neue", sans-serif; /* Apply Bebas Neue to headings */
+
+  /* Styling for the gradient text effect: */
+  /* 1. Set the background gradient */
+  background: linear-gradient(
+    90deg,
+    #fffff0,
+    /* Ivory */ #fafad2,
+    /* LightGoldenrodYellow */ #ffec8b,
+    /* LightGoldenrod */ #ffd700,
+    /* Gold */ #daa520,
+    /* Goldenrod */ #b8860b /* DarkGoldenrod */
+  );
+
+  /* 2. Clip the background to the text, making the gradient visible only within the text */
+  -webkit-background-clip: text; /* For older Safari/Chrome versions */
+  background-clip: text;
+
+  /* 3. Make the text transparent so the background shows through, revealing the gradient. */
+  color: transparent;
+
+  /* (Optional) Add animation for a moving gradient */
+  animation: animated_gradient 2s linear infinite;
+}
+
+@keyframes animated_gradient {
+  /* Animates the background position to create a moving gradient effect on the h1 text */
+  0% {
+    background-position: 0% 50%; /* Start the gradient at the left */
+  }
+  100% {
+    background-position: 100% 50%; /* End the gradient at the right, creating a seamless loop */
+  }
+}
+
+.hero h2 {
+  /* Subheading of the hero section. */
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: black;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.hero p {
+  /* Paragraph text within the hero section. */
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: black;
+}
+
+/* 1.2 Container Styles */
+.container {
+  /* Provides a consistent, responsive container for content. */
+  width: 90%; /* Responsive container width, taking up 90% of its parent's width. */
+  max-width: 1200px; /* Maximum width of the container, preventing it from becoming too wide on larger screens. */
+  margin: 0 auto; /* Centers the container horizontally */
+}
+
+/* 1.3 Image Styles */
+/* Responsive Image */
+.img-fluid {
+  /* Ensures images scale proportionally within their containers. */
+  max-width: 100%; /* Make image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* ==========================================================================
+    2. Bubbles Styles
+   ========================================================================== */
+
+/* -------------------- Bubbles Styles -------------------- */
+.bubbles {
+  /* Container for the bubble effect, positioned absolutely to overlay other content. */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2; /* Ensure bubbles are on top of the hero section */
+  overflow: hidden; /* Hides any bubbles that extend beyond the container's boundaries. */
+  pointer-events: none; /* Allows clicks to pass through the bubbles to elements beneath. */
+}
+
+/* -------------------- Individual Bubble Containers -------------------- */
+.circle_container {
+  /* Positions and animates the container for each bubble. */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform-origin: bottom right; /* Sets the point around which the container rotates. */
+  animation: rotateBubbles 15s linear infinite; /* Animates the rotation of the container. */
+}
+
+/* -------------------- Bubbles -------------------- */
+.circle {
+  /* Styles individual bubbles, creating a circular shape with a gradient and animation. */
+  position: absolute;
+  border-radius: 50%;
+  /* background: rgba(100, 149, 237, 0.5); */ /* Original solid color background (commented out) */
+  background: linear-gradient(
+    45deg,
+    #2980b9,
+    #6dd5fa
+  ); /* Gradient background for the bubbles. */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow to the bubbles. */
+  /* filter: blur(2px); */ /* Original blur effect (commented out) */
+  opacity: 0.8; /* Sets the transparency of the bubbles. */
+  animation-name: moveTopLeft; /* Refers to the name of the animation */
+  animation-duration: 20s; /* Sets the duration of the animation */
+  animation-iteration-count: infinite; /* Sets the animation to repeat infinitely */
+  animation-timing-function: linear; /* Sets the animation to have a constant speed */
+}
+
+/* -------------------- Movement from bottom-right to top-left -------------------- */
+@keyframes moveTopLeft {
+  /* Animates the movement of the bubbles from the bottom-right to the top-left. */
+  0% {
+    transform: translate(
+      0,
+      0
+    ); /* Start at the original position (bottom-right) */
+    opacity: 0; /* Start invisible */
+  }
+
+  10% {
+    opacity: 1; /* Fade in slightly */
+  }
+
+  90% {
+    opacity: 0.5; /* Reduce visibility as it nears the end */
+  }
+
+  100% {
+    transform: translate(-110vw, -110vh); /* Move beyond the visible viewport */
+    opacity: 0; /* Fade out completely */
+  }
+}
+
+/* ==========================================================================
+    3. Home Loading Animation
+   ========================================================================== */
+
+@keyframes gradient {
+  /* Animates the background position of the loading text */
+  0% {
+    background-position: 0% 50%; /* Start the gradient at the left */
+  }
+
+  50% {
+    background-position: 100% 50%; /* Move the gradient to the right */
+  }
+
+  100% {
+    background-position: 0% 50%; /* Return the gradient to the left, creating a loop */
+  }
+}
+
+.home-loading-container {
+  /* Styles the container for the home loading animation, using a gradient background. */
+  background: linear-gradient(
+    90deg,
+    #0047ab,
+    #008cff,
+    #00a1e4,
+    #00cfff,
+    #87ceeb
+  ); /* Defines the linear gradient colors */
+  background-size: 300% 300%; /* Sets the background size to allow the gradient to move */
+  background-clip: text; /* Clips the background to the text */
+  -webkit-background-clip: text; /* For older Safari/Chrome versions */
+  -webkit-text-fill-color: transparent; /* Makes the text transparent to reveal the background gradient */
+  animation: gradient 3s infinite linear; /* Applies the gradient animation */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Changed to min-height.  Ensures loading screen fills at least the entire screen height. */
+  margin: 0;
+  flex-direction: column;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #fff;
+  transition: opacity 1s ease-in-out; /* Adds a fade-out transition when loading is complete. */
+}
+
+.home-loading-text {
+  /* Styles the text within the loading container. */
+  margin: 0;
+}
+
+/* ==========================================================================
+    4. Responsiveness
+   ========================================================================== */
+
+/* Media Query for smaller screens */
+@media (max-width: 600px) {
+  /* Adjusts the font size of the loading text on smaller screens. */
+  .loading-container {
+    font-size: 2rem; /* Adjusted font-size */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjusts the font sizes of the hero section elements on tablets and smaller screens. */
+  .hero h1 {
+    font-size: 2.5em;
+  }
+
+  .hero h2 {
+    font-size: 1.2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+}
+
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 576px) {
+  /* Further adjusts the paragraph text size and line height on extra small screens for readability. */
+  .hero p {
+    font-size: 0.9em; /* Reduce paragraph font size further on extra small screens */
+    line-height: 1.4; /* Adjust line height for better readability */
+  }
+}
+
+.footer {
+  /* Styles the footer with a transition and subtle shadow. */
+  transition: 1s ease-in-out; /* Smooth slide-in effect */
+  /* z-index: 10; */ /* Ensure the footer is above other elements */
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2); /* Optional: Subtle shadow */
+  transform: translateY(
+    50px
+  ); /* Move down initially (the original code does this) */
+  transition: transform 0.3s ease-out;
+}
+
+/* KeyFrames for the "peak and see" effect */
+@keyframes peakAndSee {
+  /* Animates the footer to "peak" into view and then retreat. */
+  0%,
+  100% {
+    transform: translateY(50px); /* Start and end hidden */
+  } /* Start and end hidden */
+  50% {
+    transform: translateY(-10px); /* Peak animation effect */
+  } /* Peak animation effect */
+}
+
+/* Add the animated effect to the element */
+.footer.activate_peek {
+  /* Activates the peakAndSee animation when the 'activate_peek' class is added to the footer. */
+  animation: peakAndSee 1.5s ease-in-out;
+}
