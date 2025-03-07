@@ -2,7 +2,7 @@
  * @file index.js
  * @description This file contains JavaScript code specific to the home page (index.html).
  * It manages the bubble animation, loading screen effects, and interaction with the page's
- * visual elements. Also controls if the CV-generator should only be visible once loaded.
+ * visual elements.
  */
 
 // ==========================================================================
