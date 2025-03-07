@@ -30,9 +30,6 @@ from backend.routes.career import (
 from backend.routes.projects import (
     projects_bp,
 )  # Import blueprints for different routes: projects_bp for the projects route
-from backend.routes.cv_generator.cv_generator import (
-    cv_generator_bp,
-)  # Import blueprints for different routes: cv_generator_bp for the CV generator route
 from backend.routes.contact.contact import (
     contact_bp,
 )  # Import blueprints for different routes: contact_bp for the contact route
@@ -162,10 +159,6 @@ app.register_blueprint(career_bp)  # Register the career blueprint
 # projects routes inception (API routes + /projects & /projects/<int:page_number>)
 app.register_blueprint(projects_bp)  # Register the projects blueprint
 # Register the projects blueprint with the application.
-
-# cv_generator route inception (/cv_generator)
-app.register_blueprint(cv_generator_bp)  # Register the cv_generator blueprint
-# Register the cv_generator blueprint with the application.
 
 # contact routes inception (/contact + API routes)
 app.register_blueprint(contact_bp)  # Register the contact blueprint

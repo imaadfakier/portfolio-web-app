@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // This event listener ensures that the following code executes only after the
   // entire HTML document has been fully loaded and parsed.
 
-  const validPages = ["about", "career", "projects", "cv-generator", "contact"]; // All of the pages of interest on the whole document
+  const validPages = ["about", "career", "projects", "contact"]; // All of the pages of interest on the whole document
 
   const onProjectsRelatedPage = window.location.pathname.startsWith("/projects")
     ? true
@@ -82,10 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (!isPage("")) {
       // If the page isnt home, apply the following
       const navbar = document.querySelector(".nav-container");
-      const cvGeneratorLink = document.querySelector(".cv-generator-link");
       navbar.classList.add("visible");
       navbar.classList.remove("fade_in");
-      cvGeneratorLink.classList.add("visible");
     }
   }
 
@@ -274,12 +272,9 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (document.getElementById("projects")) {
         // if PROJECTS element
         selector = "#projects";
-      } else if (document.getElementById("portfolio")) {
-        // if PORTFOLIO element
-        selector = "#portfolio";
-      } else if (document.getElementById("cv_generator")) {
-        // if CV_GENERATOR element
-        selector = "#cv_generator";
+      } else if (document.getElementById("project-detail")) {
+        // if PROJECT DETAIL element
+        selector = "#project-detail";
       } else if (document.getElementById("contact")) {
         // if CONTACT element
         selector = "#contact";
@@ -429,15 +424,6 @@ document.addEventListener("DOMContentLoaded", function () {
           navbar.classList.add("visible");
           // then load the nav with the CSS visible code
 
-          if (!isPage("cv-generator")) {
-            // check for "cv-generator" in the document
-            const cvGeneratorLink =
-              document.querySelector(".cv-generator-link");
-            // if its not active, add the visible prop
-            cvGeneratorLink.classList.add("visible");
-            // This will remove it as it isnt wanted on the current page.
-          }
-
           setTimeout(() => {
             // perform action for X miliseconds after
 
@@ -445,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // remove fade in
           }, 1000);
 
-          if (isPage("cv-generator") || isPage("contact")) {
+          if (isPage("contact")) {
             // check for these pages
             loadReCaptchaScript();
             // if the conditions are valid, perform the action.
@@ -461,9 +447,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /**
    * @description Prevents abuse by disabling all buttons with the .btn class after they are clicked
-   * This is performed on all pages unless it is the cv-generator or contact page
+   * This is performed on all pages unless it is the projects or contact page
    */
-  if (!isPage("projects") && !isPage("cv-generator") && !isPage("contact")) {
+  if (!isPage("projects") && !isPage("contact")) {
     // set that on all pages UNLESS the 3 conditions are met
 
     preventButtonAbuse();

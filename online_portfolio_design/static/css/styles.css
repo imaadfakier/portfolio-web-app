@@ -7,8 +7,7 @@
        1.3. Slide-In Animations
        1.4. Fade-in Animation
        1.5. Button Styling
-       1.6. CV Generator Link
-       1.7. Footer Styling
+       1.6. Footer Styling
    2.  Loading Animation
    ========================================================================== */
 
@@ -171,118 +170,6 @@ this visible class is what triggers the animation.  */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-/* 1.6 CV Generator Link */
-.cv-generator-link {
-  /* Styles the CV generator link, positioning it fixed on the page. */
-  position: fixed;
-  /* right: 20px; */ /* Keep it in the same position */
-  right: -100px; /* Start off-screen */
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out,
-    box-shadow 0.1s ease;
-  opacity: 0;
-  visibility: hidden;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 25px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: width 0.3s ease;
-  width: 50px;
-  overflow: hidden;
-  white-space: nowrap;
-  justify-content: center;
-  z-index: 10;
-  font-family: "Bebas Neue", sans-serif;
-  cursor: pointer;
-}
-
-/* When visible, slide in smoothly */
-.cv-generator-link.visible {
-  /* Styles for when the CV generator link is visible, animating it to slide in. */
-  transform: translateX(-120px) translateY(-50%);
-  opacity: 1;
-  visibility: visible;
-}
-
-.cv-generator-link:hover {
-  /* Styles for the CV generator link on hover. */
-  width: 180px; /* Expands to show text */
-  transform: translateX(-120px) translateY(-50%) translateY(2px); /* Press in */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Reduce shadow */
-}
-
-/* Active State (Further Press-In) */
-.cv-generator-link:active {
-  /* Styles for the CV generator link when active (clicked). */
-  transform: translateX(-120px) translateY(-50%) translateY(4px); /* Press further */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Reduce shadow more */
-}
-
-.cv-btn {
-  /* Styles the CV button text. */
-  font-size: 20px;
-  color: #007bff;
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.cv-btn:hover {
-  /* Styles the CV button text on hover. */
-  text-decoration: none;
-}
-
-.cv-btn i {
-  /* Styles the CV button icon. */
-  position: absolute; /* Keep icon in place */
-  left: 50%;
-  transform: translateX(-50%) translateY(25%);
-  transition: opacity 0.1s ease-in-out;
-}
-
-.cv-generator-link:hover .cv-btn i {
-  /* Styles the CV button icon on hover of the generator link. */
-  opacity: 0; /* Fade out when hovered */
-}
-
-.cv-generator-link:not(:hover) .cv-btn i {
-  /* Styles the CV button icon when the generator link is not hovered. */
-  opacity: 1; /* Fade back in when not hovered */
-}
-
-.cv-btn span {
-  /* Styles the CV button text. */
-  opacity: 0;
-  transition: opacity 0.1s ease-in-out;
-}
-
-.cv-generator-link:hover .cv-btn span {
-  /* Styles the CV button text on hover of the generator link. */
-  opacity: 1; /* Fade in text */
-}
-
-.cv-generator-link:not(:hover) .cv-btn span {
-  /* Styles the CV button text when the generator link is not hovered. */
-  opacity: 0; /* Fade out text when not hovered */
-}
-
-.cv-text {
-  /* Styles the CV text within the button. */
-  margin-left: 10px;
-  font-size: 16px;
-  color: #007bff;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.cv-generator-link:hover .cv-text {
-  /* Styles the CV text when the generator link is hovered. */
-  opacity: 1; /* Text fades in when hovered */
 }
 
 /* 1.7 Footer Styling */

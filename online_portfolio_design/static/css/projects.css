@@ -6,11 +6,12 @@
 /* 2. Frosted Glass Card with Enhanced Blue Gradient Border Styles */
 /* 3. Pagination Styles */
 /* 4. Overview Styles */
-/* 5. Fade Animations */
-/* 6. Placeholder Effect Styles */
-/* 7. Masonry Layout Styles */
-/* 8. Project Detail Page-Specific Styles */
-/* 9. Responsiveness */
+/* 5. Projects Page (i.e., Page Listings) Styles */
+/* 6. Fade Animations */
+/* 7. Placeholder Effect Styles */
+/* 8. Masonry Layout Styles */
+/* 9. Project Detail Page-Specific Styles */
+/* 10. Responsiveness */
 
 /* ==========================================================================
     1. Bubbles Styles
@@ -284,7 +285,18 @@ ul.pagination li {
 }
 
 /* ==========================================================================
-    5. Fade Animations
+    5. Projects Page (i.e., Project Listings) Styles
+   ========================================================================== */
+#projects {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: row; /* ✅ Change from column to row */
+  flex-wrap: wrap; /* ✅ Ensures items wrap to a new row if necessary */
+  justify-content: center; /* ✅ Centers items nicely */
+}
+
+/* ==========================================================================
+    6. Fade Animations
    ========================================================================== */
 
 .fade-in {
@@ -330,7 +342,7 @@ ul.pagination li {
 }
 
 /* ==========================================================================
-    6. Placeholder Effect Styles
+    7. Placeholder Effect Styles
    ========================================================================== */
 
 /* 2.1. Placeholder Image */
@@ -425,7 +437,7 @@ ul.pagination li {
 }
 
 /* ==========================================================================
-    7. Masonry Layout Styles
+    8. Masonry Layout Styles
    ========================================================================== */
 
 .isotope-item .card {
@@ -441,39 +453,31 @@ ul.pagination li {
 }
 
 /* ==========================================================================
-    8. Project Detail Page-Specific Styles
+    9. Project Detail Page-Specific Styles
    ========================================================================== */
-
-#projects {
-  display: flex;
-  /* align-items: center; */
-  flex-direction: row; /* ✅ Change from column to row */
-  flex-wrap: wrap; /* ✅ Ensures items wrap to a new row if necessary */
-  justify-content: center; /* ✅ Centers items nicely */
-}
 
 section.project-listings h2 {
   font-family: "Bebas Neue", sans-serif;
   margin-bottom: 48px;
 }
 
-section#portfolio div h2 {
+section#project-detail div h2 {
   margin-bottom: 40px;
 }
 
-section#portfolio div h2,
-section#portfolio div h4,
-section#portfolio div h5 {
+section#project-detail div h2,
+section#project-detail div h4,
+section#project-detail div h5 {
   font-family: "Bebas Neue", sans-serif;
 }
 
 /* ==========================================================================
-    9. Responsiveness
+    10. Responsiveness
    ========================================================================== */
 
 @media (max-width: 650px) {
   #projects,
-  #portfolio {
+  #project-detail {
     padding-right: 50px;
     padding-left: 50px;
   }

@@ -103,7 +103,7 @@
       <!-- The text "LOADING" with animated dots. -->
     </div>
     {% endif %} {% if request.path in ['/about', '/career', '/projects',
-    '/cv-generator', '/contact'] %}
+    '/contact'] %}
 
     <!-- ==========================================================================
           Bubbles Background
@@ -177,27 +177,6 @@
     {% endif %}
 
     <!-- ==========================================================================
-          CV Generator Link (Conditional)
-         ========================================================================== -->
-    <!-- Displays a link to the CV generator on all pages except the homepage and the CV generator page itself. -->
-    {% if request.path not in ['/', '/cv-generator'] %}
-    <!-- Conditional: If the current route is not the homepage or the CV generator page. -->
-    <div
-      class="cv-generator-link fade_in"
-      onclick="document.querySelector('.cv-btn').click()"
-    >
-      <!-- Container for the CV generator link, with classes for applying a fade-in animation. -->
-      <a href="{{ url_for('cv_generator.generate_cv') }}" class="cv-btn">
-        <!-- Link to the CV generator page, with the class 'cv-btn'. -->
-        <i class="fas fa-file-alt"></i>
-        <!-- Font Awesome file icon. -->
-        <span class="cv-text">CV Generator</span>
-        <!-- The text "CV Generator". -->
-      </a>
-    </div>
-    {% endif %}
-
-    <!-- ==========================================================================
           Main Content Block
          ========================================================================== -->
     <!-- A block for including the main content of each page. -->
@@ -215,8 +194,8 @@
           JavaScript Links
          ========================================================================== -->
     <!-- Links to JavaScript files, including jQuery, Popper.js, Bootstrap, and custom scripts. -->
-    {% if request.path in ['/cv-generator', '/contact'] %}
-    <!-- Conditional to include this block only if the current route is /cv-generator or /contact -->
+    {% if request.path == '/contact' %}
+    <!-- Conditional to include this block only if the current route is /contact -->
     <script>
       let reCAPTCHASiteKey = "{{ config['RECAPTCHA_PUBLIC_KEY'] }}";
     </script>
