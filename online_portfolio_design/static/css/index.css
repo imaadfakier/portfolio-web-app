@@ -10,6 +10,7 @@
        2.2. Bubbles
    3.  Home Loading Animation
    4.  Responsiveness
+   5. Footer Styles
    ========================================================================== */
 
 /* ==========================================================================
@@ -29,7 +30,6 @@
   color: black; /* Default Text Color */
   text-align: center;
   min-height: 100vh; /* Added min-height - This ensures hero section will always be as big as the screen even with minimal content. */
-  padding: 15vh 0; /* Added padding to top and bottom, creating visual space around the hero content.  Using viewport height units for responsiveness. */
 }
 
 .hero h1 {
@@ -262,6 +262,10 @@
     line-height: 1.4; /* Adjust line height for better readability */
   }
 }
+
+/* ==========================================================================
+    5. Footer Styles
+   ========================================================================== */
 
 .footer {
   /* Styles the footer with a transition and subtle shadow. */

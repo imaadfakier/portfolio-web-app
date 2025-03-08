@@ -254,26 +254,10 @@ ul.pagination li {
 
 .overview-projects {
   list-style: none; /* Remove bullet points if desired */
-  /* padding: 0; */ /* Remove default padding if desired */
-  /* margin: 0; */ /* Remove default margin if desired */
-  column-count: 2; /* Adjust number of columns as needed */
+  column-count: 1; /* Adjust number of columns as needed */
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  grid-template-columns: 1fr; /* One equal-width column */
   padding-left: 0;
-}
-
-.overview-projects li:nth-child(odd) {
-  /* Select odd-numbered list items (left column) */
-  grid-column: 1;
-  text-align: right !important;
-  margin-right: 10px;
-}
-
-.overview-projects li:nth-child(even) {
-  /* Select even-numbered list items (right column) */
-  grid-column: 2;
-  text-align: left !important;
-  margin-left: 10px;
 }
 
 .overview-experience_description {

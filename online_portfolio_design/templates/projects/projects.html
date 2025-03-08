@@ -160,7 +160,7 @@ stylesheets %}
 
             <!-- Page Numbers -->
             {% for page_num in projects_paginator.iter_pages(left_edge=1,
-            right_edge=1, left_current=1, right_current=2) %} {% if page_num %}
+            right_edge=1, left_current=1, right_current=1) %} {% if page_num %}
             {% if projects_paginator.page == page_num %}
             <li class="page-item active">
               <span class="page-link">{{ page_num }}</span>
