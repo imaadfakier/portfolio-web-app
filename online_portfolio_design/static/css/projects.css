@@ -497,3 +497,22 @@ section#project-detail div h5 {
     /* max-width: 100%; */
   }
 }
+
+/* Responsiveness for Pagination */
+@media (max-width: 767px) {
+  .pagination-container {
+    scale: 0.7;
+  }
+}
+
+@media (max-width: 600) {
+  .pagination-container {
+    scale: 0.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination-container {
+    scale: 0.7;
+  }
+}
