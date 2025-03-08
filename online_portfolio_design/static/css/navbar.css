@@ -298,6 +298,7 @@
 @media screen and (max-width: 480px) {
   .csstransforms .cn-wrapper {
     font-size: 0.68em;
+    margin-top: -9rem;
   }
 
   .cn-button {
