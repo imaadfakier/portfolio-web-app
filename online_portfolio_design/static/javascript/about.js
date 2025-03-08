@@ -36,11 +36,24 @@ document.addEventListener("DOMContentLoaded", function () {
     !aboutMeContent ||
     !horizontalLine ||
     !technicalSkillsHeader ||
-    !footerSection ||
-    !skillDiv
+    !skillCategories ||
+    !progressBars ||
+    !footerSection
   ) {
     console.warn("One or more elements were not found."); // Log a warning to the console.
     return; // Prevent errors if critical elements are missing: exits the function to avoid further issues.
+  } else {
+    aboutMeHeader.style.display = "none";
+    aboutMeContent.style.display = "none";
+    horizontalLine.style.display = "none";
+    technicalSkillsHeader.style.display = "none";
+    skillCategories.forEach((skillCategory) => {
+      skillCategory.style.display = "none";
+    });
+    progressBars.forEach((progressBar) => {
+      progressBar.style.display = "none";
+    });
+    image.style.display = "none";
   }
 
   // ==========================================================================
@@ -84,33 +97,44 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     // After the base delay, add the 'visible' class to trigger the image's slide-in animation.
     image.classList.add("visible");
+    image.style.display = "initial";
   }, baseAnimationDelay);
 
   setTimeout(() => {
     // After the base delay, add the 'visible' class to trigger the "About Me" header's slide-in animation.
     aboutMeHeader.classList.add("visible");
+    aboutMeHeader.style.display = "initial";
   }, baseAnimationDelay);
 
   setTimeout(() => {
     // After the base delay + 3 seconds, add the 'visible' class to trigger the "About Me" content's fade-in animation.
     aboutMeContent.classList.add("visible");
+    aboutMeContent.style.display = "initial";
   }, baseAnimationDelay + 3000);
 
   setTimeout(() => {
     // After the base delay + 3.5 seconds, add the 'visible' class to trigger the horizontal line's slide-in animation.
     horizontalLine.classList.add("visible");
+    horizontalLine.style.display = "initial";
   }, baseAnimationDelay + 3500);
 
   setTimeout(() => {
     // After the base delay + 4.5 seconds, add the 'visible' class to trigger the "Technical Skills" header's slide-in animation.
     technicalSkillsHeader.classList.add("visible");
+    technicalSkillsHeader.style.display = "initial";
   }, baseAnimationDelay + 4500);
 
   setTimeout(() => {
     // After the skill category animation delay, add the 'visible' class to trigger the skill categories' fade-in animation.
-    skillCategories.forEach((el) => el.classList.add("visible"));
+    skillCategories.forEach((el) => {
+      el.style.display = "initial";
+      el.classList.add("visible");
+    });
     // Iterate through each skill category element and add the "visible" class.
-    progressBars.forEach((el) => el.classList.add("visible"));
+    progressBars.forEach((el) => {
+      el.style.display = "initial";
+      el.classList.add("visible");
+    });
     // Iterate through each progress bar element and add the "visible" class.
   }, skillCategoryAnimation);
 

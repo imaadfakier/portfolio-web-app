@@ -66,7 +66,18 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   const footerSection = document.querySelector(".footer");
 
+  overviewButton.style.display = "none";
+  projectListingsHeader.style.display = "none";
+  placeholderItems.forEach((placeholderItem) => {
+    placeholderItem.style.display = "none";
+  });
+  // projectListings.forEach((projectListing) => {
+  //   projectListing.style.display = "none";
+  // });
+  paginationContainer.style.display = "none";
+
   setTimeout(() => {
+    overviewButton.style.display = "initial";
     overviewButton.classList.add("visible");
 
     overviewButton.addEventListener("click", function (event) {
@@ -177,11 +188,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 8750);
 
   setTimeout(() => {
+    projectListingsHeader.style.display = "initial";
     projectListingsHeader.classList.add("visible");
   }, 5500);
 
   setTimeout(() => {
     placeholderItems.forEach((placeholder) => {
+      placeholder.style.display = "initial";
       placeholder.classList.add("visible");
     });
   }, 8250);
