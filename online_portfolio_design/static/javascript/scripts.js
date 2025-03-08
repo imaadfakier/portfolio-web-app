@@ -43,29 +43,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const validPages = ["about", "career", "projects", "contact"]; // All of the pages of interest on the whole document
 
-  const onProjectsRelatedPage = window.location.pathname.startsWith("/projects")
-    ? true
-    : false; // Check if a page is projects-related
-
-  if (onProjectsRelatedPage) {
-    // Only wait for promises if we're on the projects page
-    Promise.all(
-      validPages.map(async (currentPage) => {
-        // Go through each item on the page
-        const page = await isPage(currentPage);
-        // if each element is indeed a page
-        return { currentPage, isValid: page };
-        // Give each page name back
-      })
-    ).then(handlePageLogic); // Runs once promises are returned
-  } else {
-    // Skip async operations and execute synchronously
-    const results = validPages.map((currentPage) => ({
-      currentPage,
-      isValid: isPage(currentPage),
-    })); // map out if element is page or not
+  Promise.all(
+    validPages.map(async (currentPage) => {
+      return {
+        currentPage,
+        isValid: await isPage(currentPage), // Await the result of isPage
+      };
+    })
+  ).then((results) => {
+    // Wrap the handlePageLogic call within the then block
     handlePageLogic(results); // then give for handling
-  }
+  });
 
   function handlePageLogic(results) {
     // Handle logic for each page if isValid or not
@@ -550,43 +538,63 @@ function isPage(pageName) {
  * @function isValidProjectRoute
  * @description Checks if the given path is a valid project route.
  * @param {string} path - The pathname to check.
- * @returns {boolean} True if the path is a valid project route, false otherwise.
+ * @returns {Promise<boolean>} A Promise that resolves to true if the path is a valid project route, false otherwise.
  */
 function isValidProjectRoute(path) {
-  // checking if the project route is within the range
+  return new Promise((resolve, reject) => {
+    // Regex for /projects or /projects/page/N (where N is a number)
+    const pageMatch = path.match(/^\/projects(?:\/page\/(\d+))?$/);
 
-  // Regex for /projects or /projects/page/N (where N is a number)
-  const pageMatch = path.match(/^\/projects(?:\/page\/(\d+))?$/);
+    if (pageMatch) {
+      // If it's /projects or /projects/page/N, validate the page number
+      const pageNumber = pageMatch[1];
 
-  if (pageMatch) {
-    // If it's /projects or /projects/page/N, validate the page number
-    const pageNumber = pageMatch[1];
-    // if the page match
+      // **CRITICAL CHANGE: No short-circuiting!**
+      if (pageNumber === undefined) {
+        //If pageNumber is undefined, then it's valid.
+        resolve(true);
+      } else {
+        // Asynchronously check if the page is valid
+        isValidProjectPage(pageNumber)
+          .then((isValid) => {
+            if (isValid) {
+              resolve(true); // Resolve if the page is valid
+            } else {
+              resolve(false); // Resolve with false, the page is invalid
+            }
+          })
+          .catch((error) => {
+            reject(error); // Reject if there's an error during validation
+          });
+      }
 
-    if (pageNumber === undefined || isValidProjectPage(pageNumber)) {
-      // if pagenumber undefined or the page is not there then do
-      return true;
-      // True - is a valid project page
-    } else {
-      // if the page doesnt fit that criteria
-      return false;
-      // Not a valid project page
+      return; // crucial: exit this code path
     }
-  }
 
-  // Regex for /projects/ID (where ID is a number)
-  const idMatch = path.match(/^\/projects\/(\d+)$/);
+    // Regex for /projects/ID (where ID is a number)
+    const idMatch = path.match(/^\/projects\/(\d+)$/);
 
-  if (idMatch) {
-    // If it's /projects/ID, validate the project ID
-    const projectId = idMatch[1];
-    // set variable with ID
-    return isValidProjectId(projectId);
-    // and test the page
-  }
+    if (idMatch) {
+      // If it's /projects/ID, validate the project ID
+      const projectId = idMatch[1];
 
-  return false; // Not a valid project route
-  // then not valid overall.
+      // Asynchronously validate the project ID
+      isValidProjectId(projectId)
+        .then((isValid) => {
+          if (isValid) {
+            resolve(true); // Resolve if the project ID is valid
+          } else {
+            resolve(false); // Resolve with false, the project ID is invalid
+          }
+        })
+        .catch((error) => {
+          reject(error); // Reject if there's an error during validation
+        });
+      return; // Crucial: exit this code path
+    }
+
+    resolve(false); // Not a valid project route
+  });
 }
 
 /**
