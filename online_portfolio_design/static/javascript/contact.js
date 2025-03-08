@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================================================
 
   // Selects various elements on the page for manipulation and animation.
+  const contactSection = document.getElementById("contact");
   const contactMeHeader = document.querySelector("h2.hidden_slide_in"); // "Contact" header
   const contactFormContainer = document.querySelector(".contact_form"); // The contact form container
   const submitButton = document.querySelector("button[type='submit']"); // The submit button
@@ -27,9 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //  Initial Styling
   // ==========================================================================
 
-  contactMeHeader.style.display = "none";
-  contactFormContainer.style.display = "none";
-  submitButton.style.display = "none";
+  contactSection.style.overflowX = "hidden";
   // footerSection.style.display = "none"; // Hide the footer initially (commented out, so it's not currently doing anything)
 
   // ==========================================================================
@@ -42,21 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
    */
 
   setTimeout(() => {
-    contactMeHeader.style.display = "initial";
     // After just over 6 seconds, make the contact header appear by adding the "visible" class.
     contactMeHeader.classList.add("visible");
   }, 6250);
 
   setTimeout(() => {
-    contactFormContainer.style.display = "initial";
     // Make the contact form visible a bit after the header by adding the "visible" class.
     contactFormContainer.classList.add("visible");
   }, 8750);
 
   setTimeout(() => {
-    submitButton.style.display = "initial";
     // Show the submit button shortly after the form by adding the "visible" class.
     submitButton.classList.add("visible");
+
+    contactSection.style.overflowX = "";
   }, 9250);
 
   setTimeout(() => {
