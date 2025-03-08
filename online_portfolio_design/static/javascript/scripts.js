@@ -95,8 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!wrapper) {
       // if wrapper cannot be selected
-      console.error("Bubbles container (.bubbles) not found!");
-      // log the error
       return; // exit the function to prevent issues
     }
 
@@ -648,8 +646,6 @@ function isValidProjectPage(pageNumber) {
       })
       .catch((error) => {
         // catch block in the event of an error
-        console.error("Error during fetch:", error);
-        // send it to the console
         return false; // Default to false
         // then not ok
       })
@@ -688,8 +684,6 @@ function isValidProjectId(projectId) {
       })
       .catch((error) => {
         // handle exception
-        console.error("Error during fetch:", error);
-        //  log the error
         return false; // Default to false
         // then the project cannot be found
       })
