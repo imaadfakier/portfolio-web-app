@@ -37,9 +37,51 @@ window.addEventListener("pageshow", function (event) {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+async function fetchProjectsData() {
+  const cacheKey = "projectDataCache";
+  const expiryKey = "projectDataCacheExpiry";
+  const expiryDuration = 10 * 60 * 1000; // 10 minutes
+
+  // Check if data is in sessionStorage and not expired
+  const cachedData = sessionStorage.getItem(cacheKey);
+  const expiryTime = sessionStorage.getItem(expiryKey);
+
+  if (cachedData && expiryTime && Date.now() < expiryTime) {
+    return JSON.parse(cachedData); // Use cached data
+  }
+
+  try {
+    // Fetch fresh data if it's missing or expired
+    const total_projects_data = await fetch("/projects/api/total_count").then(
+      (res) => res.json()
+    );
+
+    const last_row_data = await fetch("/projects/last_id").then((res) =>
+      res.json()
+    );
+
+    // Store the fetched data together in one object
+    const fetchedData = {
+      total_projects: total_projects_data.total_projects,
+      last_row_id: last_row_data.id,
+    };
+
+    // Store in sessionStorage with an expiry time
+    sessionStorage.setItem(cacheKey, JSON.stringify(fetchedData));
+    sessionStorage.setItem(expiryKey, Date.now() + expiryDuration);
+
+    return fetchedData;
+  } catch (error) {
+    return null; // Throw the error to be handled further up
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
   // This event listener ensures that the following code executes only after the
   // entire HTML document has been fully loaded and parsed.
+
+  // ----- Fetch projects data and store in sessionStorage -----
+  await fetchProjectsData(); // Load data and store it in sessionStorage
 
   const validPages = ["about", "career", "projects", "contact"]; // All of the pages of interest on the whole document
 
@@ -444,7 +486,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================================================
   //  Button Abuse Prevention
   // ==========================================================================
-
   /**
    * @description Prevents abuse by disabling all buttons with the .btn class after they are clicked
    * This is performed on all pages unless it is the projects or contact page
@@ -458,9 +499,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ==========================================================================
-//  Functions
+//  "Helper" Functions
 // ==========================================================================
-
 /**
  * @function loadReCaptcha
  * @description Loads the Google reCAPTCHA script and executes the reCAPTCHA logic.
@@ -552,61 +592,35 @@ function isPage(pageName) {
  * @param {string} path - The pathname to check.
  * @returns {Promise<boolean>} A Promise that resolves to true if the path is a valid project route, false otherwise.
  */
-function isValidProjectRoute(path) {
-  return new Promise((resolve, reject) => {
-    // Regex for /projects or /projects/page/N (where N is a number)
-    const pageMatch = path.match(/^\/projects(?:\/page\/(\d+))?$/);
+async function isValidProjectRoute(path) {
+  // Regex for /projects or /projects/page/N (where N is a number)
+  const pageMatch = path.match(/^\/projects(?:\/page\/(\d+))?$/);
 
-    if (pageMatch) {
-      // If it's /projects or /projects/page/N, validate the page number
-      const pageNumber = pageMatch[1];
+  if (pageMatch) {
+    // If it's /projects or /projects/page/N, validate the page number
+    const pageNumber = pageMatch[1];
 
-      // **CRITICAL CHANGE: No short-circuiting!**
-      if (pageNumber === undefined) {
-        //If pageNumber is undefined, then it's valid.
-        resolve(true);
-      } else {
-        // Asynchronously check if the page is valid
-        isValidProjectPage(pageNumber)
-          .then((isValid) => {
-            if (isValid) {
-              resolve(true); // Resolve if the page is valid
-            } else {
-              resolve(false); // Resolve with false, the page is invalid
-            }
-          })
-          .catch((error) => {
-            reject(error); // Reject if there's an error during validation
-          });
-      }
-
-      return; // crucial: exit this code path
+    // **CRITICAL CHANGE: No short-circuiting!**
+    if (pageNumber === undefined) {
+      //If pageNumber is undefined, then it's valid.
+      return true;
+    } else {
+      // Asynchronously check if the page is valid
+      return isValidProjectPage(pageNumber);
     }
+  }
 
-    // Regex for /projects/ID (where ID is a number)
-    const idMatch = path.match(/^\/projects\/(\d+)$/);
+  // Regex for /projects/ID (where ID is a number)
+  const idMatch = path.match(/^\/projects\/(\d+)$/);
 
-    if (idMatch) {
-      // If it's /projects/ID, validate the project ID
-      const projectId = idMatch[1];
+  if (idMatch) {
+    // If it's /projects/ID, validate the project ID
+    const projectId = idMatch[1];
+    // Asynchronously validate the project ID
+    return isValidProjectId(projectId);
+  }
 
-      // Asynchronously validate the project ID
-      isValidProjectId(projectId)
-        .then((isValid) => {
-          if (isValid) {
-            resolve(true); // Resolve if the project ID is valid
-          } else {
-            resolve(false); // Resolve with false, the project ID is invalid
-          }
-        })
-        .catch((error) => {
-          reject(error); // Reject if there's an error during validation
-        });
-      return; // Crucial: exit this code path
-    }
-
-    resolve(false); // Not a valid project route
-  });
+  return false; // Not a valid project route
 }
 
 /**
@@ -615,7 +629,7 @@ function isValidProjectRoute(path) {
  * @param {string} pageNumber - The page number to check.
  * @returns {boolean} True if the page number is valid, false otherwise.
  */
-function isValidProjectPage(pageNumber) {
+async function isValidProjectPage(pageNumber) {
   // This function tests and checks the the pages on the project route.
   const pageNum = parseInt(pageNumber, 10);
   // convert to the data
@@ -625,45 +639,20 @@ function isValidProjectPage(pageNumber) {
     // Then not a valid request.
   }
 
-  // Make an asynchronous request to fetch total_projects from backend and then use it to compare the page number
-  return (
-    fetch("/projects/api")
-      // try get the json file from that URL
-      .then((response) => {
-        // if the response works
-        if (!response.ok) {
-          // check is its not okay, then send error to the console
-          throw new Error(`HTTP error! Status: ${response.status}`);
-          // send the error
-        }
-        return response.json(); // Parse the response body as JSON
-        // or continue on if that works
-      })
-      .then((data) => {
-        // when response is sent back
+  const projectData = await fetchProjectsData();
+  let total_projects = projectData.total_projects;
+  // let total projects to data length
+  let PROJECTS_PER_PAGE = 12;
+  // projects = 12
 
-        //   let total_projects = data.total_projects;
-        let total_projects = data.length;
-        // let total projects to data length
-        //   let PROJECTS_PER_PAGE = data.projects_per_page;
-        let PROJECTS_PER_PAGE = 12;
-        // projects = 12
-
-        let maxPage =
-          (parseInt(total_projects, 10) + parseInt(PROJECTS_PER_PAGE, 10) - 1) /
-          parseInt(PROJECTS_PER_PAGE, 10);
-        // math to find max pages
-        if (pageNum > maxPage) return false;
-        // if num is over the max, then give error
-        return pageNum <= maxPage;
-        // otherwise its ok
-      })
-      .catch((error) => {
-        // catch block in the event of an error
-        return false; // Default to false
-        // then not ok
-      })
-  );
+  let maxPage =
+    (parseInt(total_projects, 10) + parseInt(PROJECTS_PER_PAGE, 10) - 1) /
+    parseInt(PROJECTS_PER_PAGE, 10);
+  // math to find max pages
+  if (pageNum > maxPage) return false;
+  // if num is over the max, then give error
+  return pageNum <= maxPage;
+  // otherwise it's ok
 }
 
 /**
@@ -672,7 +661,7 @@ function isValidProjectPage(pageNumber) {
  * @param {string} projectId - The project ID to check.
  * @returns {boolean} True if the project ID is valid, false otherwise.
  */
-function isValidProjectId(projectId) {
+async function isValidProjectId(projectId) {
   // This function helps to determine if the project ID is valid
   const project_id = parseInt(projectId, 10);
   // if it is, then it will be int
@@ -681,25 +670,11 @@ function isValidProjectId(projectId) {
     return false;
     // not a valid project
   }
+  const projectData = await fetchProjectsData();
+  if (project_id > projectData.last_row_id) {
+    return false;
+  }
 
-  // Make an asynchronous request to fetch total_projects from backend and then use it to compare the page number
-  return (
-    fetch("/projects/api/" + project_id)
-      // try get the json file from that URL and if it is a project.
-      .then((response) => {
-        // if the resonse back is a project, and all is oke then
-        if (!response.ok) {
-          // if its not ok, then send error to the console
-          throw new Error(`HTTP error! Status: ${response.status}`);
-          // write a new erorr
-        }
-        return true; // Successful Response
-        //  then this project exist
-      })
-      .catch((error) => {
-        // handle exception
-        return false; // Default to false
-        // then the project cannot be found
-      })
-  );
+  // then it is valid!
+  return true;
 }

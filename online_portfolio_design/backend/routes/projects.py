@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for, abort
+from sqlalchemy.exc import SQLAlchemyError
 from backend.models.projects import db, Overview, Project
 import json
 from backend.routes.utils import (
@@ -126,6 +127,39 @@ def manage_project(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": f"Failed to update project. {str(e)}"}), 400
+
+
+@projects_bp.route("/api/total_count")
+def get_project_count():
+    try:
+        total_projects = db.session.query(Project).count()  # Efficient count query
+        return jsonify({"total_projects": total_projects})  # Only return the count
+    except SQLAlchemyError as e:
+        db.session.rollback()  # Rollback transaction
+        return jsonify({"error": "Database error occurred"}), 500  # Error response
+    except Exception as e:
+        return jsonify({"error": "An unexpected error occurred"}), 500
+
+
+@projects_bp.route("/last_id")
+def get_last_project():
+    try:
+        # Query for the last project, ordered by ID in descending order
+        last_project = Project.query.order_by(Project.id.desc()).first()
+
+        if last_project:
+            return jsonify(last_project.to_dict())
+        else:
+            return jsonify({"message": "No projects found"}), 404
+
+    except SQLAlchemyError as e:
+        # SQLAlchemy-specific error handling
+        db.session.rollback()  # Rollback transaction
+        return jsonify({"error": "Database error occurred"}), 500
+
+    except Exception as e:
+        # Catchall error handling for any exceptions not specifically database related
+        return jsonify({"error": "An unexpected error occurred"}), 500
 
 
 # ----- Web Routes for Rendering Pages -----
