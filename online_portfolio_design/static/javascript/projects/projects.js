@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   const footerSection = document.querySelector(".footer");
 
+  document.body.style.overflow = "hidden";
   projectListingsSection.style.overflowX = "hidden";
 
   setTimeout(() => {
@@ -254,6 +255,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setTimeout(() => {
     paginationContainer.classList.add("visible");
+
+    document.body.style.overflow = "";
   }, 8500);
 
   setTimeout(() => {

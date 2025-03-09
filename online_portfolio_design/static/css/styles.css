@@ -30,6 +30,14 @@ body {
   overflow-x: hidden; /* Prevents horizontal scrolling. */
   font-family: "Roboto", sans-serif; /* Default to Roboto: Sets the default font to Roboto. */
   color: black;
+
+  /* These CSS properties ensure content doesn’t get cut off by the notch or home indicator, while also making sure the background covers the entire screen */
+  /* • The background color fills the entire viewport, including behind the notch. */
+  /* ∙ The content inside the page respects safe areas (prevents things from getting cut off). */
+  /* height: 100vh; */ /* Full height */
+  /* width: 100vw; */ /* Full width */
+  /* padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left); */
 }
 
 body.loading {

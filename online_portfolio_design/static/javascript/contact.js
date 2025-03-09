@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //  Initial Styling
   // ==========================================================================
 
+  document.body.style.overflow = "hidden";
   contactSection.style.overflowX = "hidden";
   // footerSection.style.display = "none"; // Hide the footer initially (commented out, so it's not currently doing anything)
 
@@ -61,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reveal the footer last by adding the "visible" class.
     // footerSection.style.display = "block";
     footerSection.classList.add("visible");
+
+    document.body.style.overflow = "";
   }, 9500);
 
   // ==========================================================================

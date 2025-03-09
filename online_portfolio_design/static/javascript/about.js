@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.warn("One or more elements were not found."); // Log a warning to the console.
     return; // Prevent errors if critical elements are missing: exits the function to avoid further issues.
   } else {
+    document.body.style.overflow = "hidden";
     aboutSection.style.overflowX = "hidden";
   }
 
@@ -110,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }, baseAnimationDelay + 4500);
 
   setTimeout(() => {
+    document.body.style.overflow = "";
+
     // After the skill category animation delay, add the 'visible' class to trigger the skill categories' fade-in animation.
     skillCategories.forEach((el) => el.classList.add("visible"));
     // Iterate through each skill category element and add the "visible" class.

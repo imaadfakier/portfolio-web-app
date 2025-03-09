@@ -10,8 +10,13 @@
          ========================================================================== -->
     <!-- Sets character set, viewport, and other meta information for the document. -->
     <meta charset="UTF-8" />
-    <!-- Specifies the character encoding for the document. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- This ensures:
+            • The background color fills the entire viewport, including behind the notch.
+            • The content inside the page respects safe areas (prevents things from getting cut off). -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <!-- Configures the viewport for responsive design. -->
 
     <!-- ==========================================================================

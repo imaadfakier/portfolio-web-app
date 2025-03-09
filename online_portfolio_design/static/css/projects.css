@@ -501,18 +501,18 @@ section#project-detail div h5 {
 /* Responsiveness for Pagination */
 @media (max-width: 767px) {
   .pagination-container {
-    scale: 0.7;
+    scale: 0.8;
   }
 }
 
-@media (max-width: 600) {
+@media (max-width: 600px) {
   .pagination-container {
-    scale: 0.7;
+    scale: 0.8;
   }
 }
 
 @media (max-width: 480px) {
   .pagination-container {
-    scale: 0.7;
+    scale: 0.8;
   }
 }

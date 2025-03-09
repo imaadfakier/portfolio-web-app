@@ -43,17 +43,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const validPages = ["about", "career", "projects", "contact"]; // All of the pages of interest on the whole document
 
-  Promise.all(
-    validPages.map(async (currentPage) => {
+  const projectsRelatedPage = window.location.pathname.startsWith("/projects")
+    ? true
+    : false; // Check if a page is projects-related
+
+  if (projectsRelatedPage) {
+    Promise.all(
+      validPages.map(async (currentPage) => {
+        return {
+          currentPage,
+          isValid: await isPage(currentPage), // Await the result of isPage
+        };
+      })
+    ).then((results) => {
+      // Wrap the handlePageLogic call within the then block
+      handlePageLogic(results); // then give for handling
+    });
+  } else {
+    const results = validPages.map((currentPage) => {
       return {
         currentPage,
-        isValid: await isPage(currentPage), // Await the result of isPage
+        isValid: isPage(currentPage),
       };
-    })
-  ).then((results) => {
-    // Wrap the handlePageLogic call within the then block
-    handlePageLogic(results); // then give for handling
-  });
+    });
+    handlePageLogic(results);
+  }
 
   function handlePageLogic(results) {
     // Handle logic for each page if isValid or not
