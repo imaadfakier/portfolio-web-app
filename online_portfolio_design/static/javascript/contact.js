@@ -244,7 +244,7 @@ function displayAlert(type, message, contactFormContainer, contactForm) {
 function loadRecaptcha() {
   grecaptcha.ready(function () {
     grecaptcha
-      .execute("YOUR_RECAPTCHA_SITE_KEY", { action: "submit" })
+      .execute(reCAPTCHASiteKey, { action: "submit" })
       .then(function (token) {
         document.getElementById("recaptchaToken").value = token;
       });
