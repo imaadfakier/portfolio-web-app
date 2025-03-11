@@ -64,5 +64,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     // After 8.75 seconds, make the footer appear by adding the "visible" class.
     footerSection.classList.add("visible");
-  }, 6750);
+  }, 6250);
 });
