@@ -44,10 +44,7 @@
       <!-- this code will create a Row/Section for the details/elements of  a code on this page with a scale and animated properties. -->
       <div class="col-md-12">
         <!-- size to what the card content to. It is 12 or 100% for the width -->
-        <div
-          class="card mb-4 project-placeholder fade_in"
-          style="display: none"
-        >
+        <div class="card mb-4 project-placeholder fade_in">
           <!-- add css styling for the layout -->
           <img
             class="card-img-top animated-bg"
@@ -57,7 +54,7 @@
           <!-- get a picture as a placeholder. This one has been animated too to look as if it is loading. -->
           <div class="card-body">
             <!-- code from bootstrap is added here to make the base content on this card, so that the text fits. This is the body for all codes  -->
-            <h5 class="card-title animated-bg animated-bg-text"></h5>
+            <h4 class="card-title animated-bg animated-bg-text"></h4>
             <!-- adds the title text as a prop, and make it animated-->
             <p class="card-text animated-bg animated-bg-text"></p>
             <!-- adds the text under it with animation for smooth load in. -->
@@ -116,7 +113,7 @@
           <!-- end the checking -->
           <div class="card-body">
             <!-- code to create the styling of the page from BootStrap. this is the container for everything.  -->
-            <h5 class="card-title">{{ project.name | safe }}</h5>
+            <h4 class="card-title">{{ project.name | safe }}</h4>
             <!-- inject the name into the title with the class -->
             <p class="card-text">{{ project.description | safe }}</p>
             <!-- and the description as well -->
@@ -150,11 +147,11 @@
       <!-- New row for technical details and key learnings -->
       <div class="col-md-12">
         <!-- set col size to full -->
-        <div class="card p-4 project-placeholder fade_in" style="display: none">
+        <div class="card p-4 project-placeholder fade_in">
           <!-- set a card to show while loading -->
           <div>
             <!-- container to for all text -->
-            <h4 class="animated-bg animated-bg-text"></h4>
+            <h5 class="animated-bg animated-bg-text"></h5>
             <!-- set animation -->
             <ul>
               <!-- set list -->
@@ -174,7 +171,7 @@
           <!-- end to the inner containter -->
           <br />
           <!-- spacing code -->
-          <h4 class="animated-bg animated-bg-text"></h4>
+          <h5 class="animated-bg animated-bg-text"></h5>
           <!-- preform animation for loading-->
           <p class="animated-bg animated-bg-text"></p>
           <!-- preform animation for loading-->
@@ -182,7 +179,7 @@
           <!-- spacing code -->
           <br />
           <!-- spacing code -->
-          <h4 class="animated-bg animated-bg-text"></h4>
+          <h5 class="animated-bg animated-bg-text"></h5>
           <!-- preform animation for loading-->
           <p class="animated-bg animated-bg-text"></p>
           <!-- preform animation for loading-->
@@ -194,7 +191,7 @@
           <!-- check if the project has technical details -->
           <div>
             <!-- add container to the code -->
-            <h4>Technical Details:</h4>
+            <h5>Technical Details:</h5>
             <!-- add the header -->
             <ul>
               <!-- bullet points for code -->
@@ -228,13 +225,13 @@
           <!-- then end the container -->
           {% endif %}
           <!-- end checker/loop -->
-          <h4>Key Learnings:</h4>
+          <h5>Key Learnings:</h5>
           <!-- inject code about what it was learned -->
           <p>{{ project.key_learnings | safe }}</p>
           <!-- from what the details say -->
           {% if project.status %}
           <!-- check and see if there is a status -->
-          <h4>Status:</h4>
+          <h5>Status:</h5>
           <!-- if so then show what is the status for it-->
           <p>{{ project.status | safe }}</p>
           <!-- use save filter -->

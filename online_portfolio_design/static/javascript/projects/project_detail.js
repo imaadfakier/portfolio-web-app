@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // const portfolioProjectMedia = document.querySelector(  // commented query
   //   "div.hidden_slide_in.slideInFromRight"
   // );
-  const projectPlaceholder = document.querySelectorAll(
+  const projectPlaceholders = document.querySelectorAll(
     "div.project-placeholder.fade_in"
   ); // Selects all loading placeholder divs, these are usually CSS load effects
-  const portfolioProject = document.querySelectorAll(
+  const portfolioProjectInformation = document.querySelectorAll(
     "div.project-listing.fade_in"
   ); // Selects all actual project listing divs
 
@@ -42,28 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setTimeout(() => {
     // Show the Loading Screen 1 with CSS effects.
-    projectPlaceholder.forEach((projectPlaceholderDetail) => {
-      projectPlaceholderDetail.style.display = "block";
-      projectPlaceholderDetail.classList.add("visible");
+    projectPlaceholders.forEach((projectPlaceholder) => {
+      projectPlaceholder.classList.add("visible");
     });
-  }, 6250);
+  }, 6750);
 
   setTimeout(() => {
     // This line will allow the actual project data to show
-    projectPlaceholder.forEach((projectPlaceholderDetail) => {
-      projectPlaceholderDetail.classList.add("fade_out");
-      projectPlaceholderDetail.classList.remove("visible");
-      projectPlaceholderDetail.remove();
+    projectPlaceholders.forEach((projectPlaceholder) => {
+      projectPlaceholder.classList.add("fade_out");
+      projectPlaceholder.classList.remove("visible");
+      projectPlaceholder.remove();
     });
 
-    portfolioProject.forEach((portfolioProjectDetail) => {
+    portfolioProjectInformation.forEach((portfolioProjectDetail) => {
       portfolioProjectDetail.style.display = "block";
       portfolioProjectDetail.classList.add("visible");
     });
-  }, 9250);
+  }, 8750);
 
   setTimeout(() => {
     // After 8.75 seconds, make the footer appear by adding the "visible" class.
     footerSection.classList.add("visible");
-  }, 7000);
+  }, 6750);
 });
