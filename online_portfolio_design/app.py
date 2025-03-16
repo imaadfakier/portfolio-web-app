@@ -9,6 +9,10 @@ initialization of various components and starting the Flask development server.
 """
 
 from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 import os  # Import the os module for interacting with the operating system
 from flask import Flask, request, render_template  # Import necessary Flask modules
 from config import get_config  # Import the function to retrieve the configuration
@@ -34,9 +38,6 @@ from backend.routes.contact.contact import (
     contact_bp,
 )  # Import blueprints for different routes: contact_bp for the contact route
 from logger import logger
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 def create_app(config_name: str = "default") -> Flask:
