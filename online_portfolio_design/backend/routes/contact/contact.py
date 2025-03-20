@@ -110,7 +110,7 @@ def contact():
                 # The recipient email address from the Flask configuration
                 reply_to=email,
                 # The email address to reply to
-                body=f"Name: {name}\n\nEmail: {email}\n\nMessage:\n{message}",
+                body=f"Name: {name}\n\nEmail: {email}\n\nMessage:\n\n{message}",
                 # The body of the email message
             )
 
